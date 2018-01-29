@@ -1,0 +1,113 @@
+version: '3'
+
+services:
+  getOrdersUsingOccasionAPITask:
+    depends_on:
+      - saveOccasionOrderToMySQLTask
+      - kafka
+      - mockoccasionapi
+    image: ideafoundry/get-orders-using-occasion-api-worker:1.49.9.RELEASE
+    deploy:
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+        window: 120s
+      replicas: 1
+      placement:
+        constraints:
+          - engine.labels.node.type==1gb
+    environment:
+      - OKHTTP_CLIENT_TIMEOUT_SECONDS=${OKHTTP_CLIENT_TIMEOUT_SECONDS}
+      - OCCASION_EXPORT_STARTING_PAGE_NUM=${OCCASION_EXPORT_STARTING_PAGE_NUM}
+      - KAFKA_HOST=${KAFKA_HOST}
+      - ZOOKEEPER_HOST=${ZOOKEEPER_HOST}
+      - IF_OCCASION_CREDS=${IF_OCCASION_CREDS}
+      - IF_OCCASION_EXPORT_URL=${IF_OCCASION_EXPORT_URL}
+      - RECONCILE=${RECONCILE}
+      - ORDER_IDS_FILE=${ORDER_IDS_FILE}
+      - ENV=${ENV}
+      - PAGE_SIZE=${PAGE_SIZE}
+      - ACCESS_KEY_AWS=${ACCESS_KEY_AWS}
+      - SECRET_KEY_AWS=${SECRET_KEY_AWS}
+      - EXPORT_FROM_FILE=${EXPORT_FROM_FILE}
+  saveOccasionOrderToMySQLTask:
+    depends_on:
+      - kafka
+      - mysql
+    image: ideafoundry/save-occasion-order-to-mysql-worker:1.31.11.RELEASE
+    deploy:
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+        window: 120s
+      replicas: ${NUM_SAVE_ORDER_TO_DB_WORKERS}
+      placement:
+        constraints:
+          - engine.labels.node.type==saveordertodb
+    environment:
+      - RECONCILE=${RECONCILE}
+      - MAX_SAVE_ORDER_TO_DB_WORKER_COUNT=${MAX_SAVE_ORDER_TO_DB_WORKER_COUNT}
+      - DB_HOST=${DB_HOST}
+      - IF_DB_PORT=${IF_DB_PORT}
+      - IF_DB_USERNAME=${IF_DB_USERNAME}
+      - IF_DB_PASSWORD=${IF_DB_PASSWORD}
+      - KAFKA_HOST=${KAFKA_HOST}
+      - ZOOKEEPER_HOST=${ZOOKEEPER_HOST}
+  mysql:
+    image: mysql:8.0.1
+    deploy:
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+        window: 120s
+      replicas: 1
+      placement:
+        constraints:
+          - engine.labels.node.type==mysql
+    volumes:
+      - /home/ubuntu/schemas:/docker-entrypoint-initdb.d
+      - db_data:/var/lib/mysql
+    ports:
+      - "3306:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=${IF_DB_ROOT_PASS}
+      - MYSQL_USER=ideafoundry
+      - MYSQL_DATABASE=ideafoundry
+      - MYSQL_PASSWORD=${IF_DB_PASSWORD}
+  zookeeper:
+    image: wurstmeister/zookeeper
+    deploy:
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+        window: 120s
+      replicas: 1
+      placement:
+        constraints:
+          - engine.labels.node.type==kafka
+  kafka:
+    depends_on:
+      - zookeeper
+    image: wurstmeister/kafka
+    deploy:
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+        window: 120s
+      replicas: 1
+      placement:
+        constraints:
+          - engine.labels.node.type==kafka
+    environment:
+      - KAFKA_ADVERTISED_HOST_NAME=${KAFKA_HOST}
+      - KAFKA_ZOOKEEPER_CONNECT=zookeeper:2181
+      - KAFKA_ADVERTISED_PORT=9092
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+volumes:
+  db_data:

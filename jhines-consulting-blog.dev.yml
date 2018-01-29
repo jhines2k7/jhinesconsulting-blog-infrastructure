@@ -1,0 +1,128 @@
+version: '3'
+
+services:
+  getOccasionOrdersByVerificationCodeWorker:
+    depends_on:
+#      - saveOccasionOrderToDatabaseWorker
+      - kafka
+      - mockoccasionapi
+    image: ideafoundry/get-occasion-orders-by-verification-code-task:1.49.9-SNAPSHOT
+    deploy:
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+        window: 120s
+      replicas: 1
+      placement:
+        constraints:
+          - engine.labels.node.type==1gb
+    environment:
+      - OKHTTP_CLIENT_TIMEOUT_SECONDS=${OKHTTP_CLIENT_TIMEOUT_SECONDS}
+      - OCCASION_EXPORT_STARTING_PAGE_NUM=${OCCASION_EXPORT_STARTING_PAGE_NUM}
+      - KAFKA_HOST=${KAFKA_HOST}
+      - ZOOKEEPER_HOST=${ZOOKEEPER_HOST}
+      - IF_OCCASION_CREDS=${IF_OCCASION_CREDS}
+      - IF_OCCASION_EXPORT_URL=${IF_OCCASION_EXPORT_URL}
+      - IF_OCCASION_RECONCILE=${IF_OCCASION_RECONCILE}
+      - ORDER_IDS_FILE=${ORDER_IDS_FILE}
+      - ENV=${ENV}
+      - PAGE_SIZE=${PAGE_SIZE}
+      - ACCESS_KEY_AWS=${ACCESS_KEY_AWS}
+      - SECRET_KEY_AWS=${SECRET_KEY_AWS}
+      - EXPORT_FROM_FILE=${EXPORT_FROM_FILE}
+#  saveOccasionOrderToDatabaseWorker:
+#    depends_on:
+#      - kafka
+#      - mysql
+#    image: ideafoundry/create-airtable-person-service:1.31.11-SNAPSHOT
+#    deploy:
+#      restart_policy:
+#        condition: on-failure
+#        delay: 5s
+#        max_attempts: 3
+#        window: 120s
+#      replicas: ${PERSONSINK_REPLICAS}
+#      placement:
+#        constraints:
+#          - engine.labels.node.type==createperson
+  mockoccasionapi:
+    image: ideafoundry/mock-occasion-api:2.7.4
+    depends_on:
+      - kafka
+    deploy:
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+        window: 120s
+      replicas: 1
+      placement:
+        constraints:
+          - engine.labels.node.type==512mb
+    environment:
+      - NUM_ORDERS=${NUM_ORDERS}
+      - NUM_OCCURRENCES=${NUM_OCCURRENCES}
+      - NUM_CUSTOMERS=${NUM_CUSTOMERS}
+      - NUM_QUESTIONS=${NUM_QUESTIONS}
+      - NUM_ANSWERS=${NUM_ANSWERS}
+  mysql:
+    image: mysql:8.0.1
+    deploy:
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+        window: 120s
+      replicas: 1
+      placement:
+        constraints:
+          - engine.labels.node.type==mysql
+    volumes:
+      - /home/ubuntu/schemas:/docker-entrypoint-initdb.d
+      - db_data:/var/lib/mysql
+    ports:
+      - "3306:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=${IF_DB_ROOT_PASS}
+      - MYSQL_USER=ideafoundry
+      - MYSQL_DATABASE=ideafoundry
+      - MYSQL_PASSWORD=${IF_DB_PASSWORD}
+  zookeeper:
+    image: wurstmeister/zookeeper
+    ports:
+      - "2181:2181"
+    deploy:
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+        window: 120s
+      replicas: 1
+      placement:
+        constraints:
+          - engine.labels.node.type==kafka
+  kafka:
+    depends_on:
+      - zookeeper
+    image: wurstmeister/kafka
+    ports:
+      - "9092:9092"
+    deploy:
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+        window: 120s
+      replicas: 1
+      placement:
+        constraints:
+          - engine.labels.node.type==kafka
+    environment:
+      - KAFKA_ADVERTISED_HOST_NAME=${KAFKA_HOST}
+      - KAFKA_ZOOKEEPER_CONNECT=zookeeper:2181
+      - KAFKA_ADVERTISED_PORT=9092
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+volumes:
+  db_data:
