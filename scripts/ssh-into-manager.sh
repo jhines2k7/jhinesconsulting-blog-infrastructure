@@ -6,4 +6,4 @@ function get_manager_machine_name {
 
 manager_machine=$(get_manager_machine_name)
 
-docker-machine ssh manager_machine
+docker-machine ssh $manager_machine
