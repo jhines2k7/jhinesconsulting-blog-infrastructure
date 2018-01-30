@@ -36,7 +36,7 @@ function create_node {
     local security_group="jhines-consulting-blog-test"
     local machine_id=$node_type-$ID
     local subnet_id="subnet-3f2d8f57"
-    local ami="ami-36a8754c"
+    local ami="ami-5ae1cb3f"
     
     echo "======> creating $machine_id"
 

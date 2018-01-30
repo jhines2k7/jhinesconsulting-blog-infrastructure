@@ -13,5 +13,6 @@ echo '"y" | sudo ufw --force enable \
 && sudo ufw allow 7946/tcp \
 && sudo ufw allow 7946/udp \
 && sudo ufw allow 4789/udp \
+&& sudo ufw allow 80/tcp \
 && sudo ufw reload \
 && sudo systemctl restart docker'
