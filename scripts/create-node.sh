@@ -67,7 +67,7 @@ function create_node {
         --amazonec2-security-group $security_group \
         --amazonec2-instance-type $instance_type \
         --amazonec2-region $aws_region \
-        --amozonec2-zone a \
+        --amazonec2-zone a \
         $machine_id
     
     if [ ! -e "$failed_installs_file" ] ; then
