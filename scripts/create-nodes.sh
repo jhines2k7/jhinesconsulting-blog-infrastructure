@@ -12,7 +12,7 @@ function get_manager_machine_name {
 
 #create manager node
 function create_manager_node {
-    bash ./create-node.sh manager 1 $ENV $PROVIDER
+    bash ./create-node.sh manager 1
 
     result=$?
 
@@ -45,20 +45,6 @@ function init_swarm_manager {
 
     echo "Swarm manager machine name: $manager_machine"
     docker-machine ssh $manager_machine sudo docker swarm init --advertise-addr $ip
-}
-
-function copy_env_file {
-    local env_file="../.env"
-    local directory=/
-
-    if [ "$PROVIDER" = "aws" ]
-    then
-        directory=/home/ubuntu
-    fi
-
-    echo "======> copying .env file to manager node ..."
-
-    docker-machine scp $env_file $(get_manager_machine_name):$directory
 }
 
 function copy_compose_file {
@@ -96,7 +82,7 @@ init_swarm_manager
 copy_compose_file
 
 echo "======> creating blog node..."
-create_512mb_worker_nodes 1 &
+create_512mb_worker_nodes 1
 echo "======> finished creating blog node..."
 
 bash ./remove-nodes-with-failed-docker-installations.sh
