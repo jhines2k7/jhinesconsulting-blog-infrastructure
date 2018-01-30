@@ -2,9 +2,9 @@ version: '3'
 
 services:
   blog:
-    image: jhines2017/jhines-consulting-blog:0.8.0
+    image: jhines2017/jhines-consulting-blog:0.10.0
     ports:
-      - "3306:3306"
+      - "80:80"
     deploy:
       restart_policy:
         condition: on-failure
