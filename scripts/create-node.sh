@@ -32,9 +32,11 @@ function create_node {
     local ID=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 12 | head -n 1)
     local instance_type="t2.micro"
     local size="1gb"
-    local vpc_id="vpc-cef83fa9"
+    local vpc_id="vpc-f3bb459a"
     local security_group="jhines-consulting-blog-test"
     local machine_id=$node_type-$ID
+    local subnet_id="subnet-3f2d8f57"
+    local ami="ami-36a8754c"
     
     echo "======> creating $machine_id"
 
@@ -43,27 +45,14 @@ function create_node {
     # t2.small=2
 
     case "$node_type" in
-
-    mysql)
-        instance_type="t2.small"
-        size="2gb"
-        ;;
-
-    kafka)
-        instance_type="t2.small"
-        size="2gb"
-        ;;
-
     512mb) instance_type="t2.nano"
         ;;
     
     esac
 
-    if [ "$PROVIDER" = "aws" ]
-    then
-        if [ "$ENV" = "dev" ]
+    if [ "$ENV" = "dev" ]
         then
-            security_group="ideafoundry-integration-dev"
+            security_group="jhines-consulting-blog-dev"
         fi
 
         echo "======> launching $instance_type AWS instance..."
@@ -71,24 +60,13 @@ function create_node {
         docker-machine create \
         --engine-label "node.type=$node_type" \
         --driver amazonec2 \
-        --amazonec2-ami ami-36a8754c \
+        --amazonec2-ami $ami \
         --amazonec2-vpc-id $vpc_id \
-        --amazonec2-subnet-id subnet-8d401ab0 \
+        --amazonec2-subnet-id $subnet_id \
         --amazonec2-security-group $security_group \
         --amazonec2-zone e \
         --amazonec2-instance-type $instance_type \
         $machine_id
-    else
-        echo "======> launching $size Digital Ocean instance..."
-
-         docker-machine create \
-         --engine-label "node.type=$node_type" \
-         --driver digitalocean \
-         --digitalocean-image ubuntu-17-10-x64 \
-         --digitalocean-size $size \
-         --digitalocean-access-token $DIGITALOCEAN_ACCESS_TOKEN \
-         $machine_id
-    fi
     
     if [ ! -e "$failed_installs_file" ] ; then
         touch "$failed_installs_file"
@@ -100,7 +78,7 @@ function create_node {
 
     if [ $? -ne 0 ]
     then
-        if [ $node_type = "manager" ] || [ $node_type = "mysql" ] || [ $node_type = "kafka" ]
+        if [ $node_type = "manager" ]
         then
             exit 2
         else                                
@@ -109,17 +87,7 @@ function create_node {
 
         return 1        
     fi
-    
-    if [ "$node_type" = "mysql" ]
-    then
-        copy_sql_schema
 
-        if [ $? -ne 0 ]
-        then
-            exit 2
-        fi
-    fi
- 
     bash ./set-ufw-rules.sh $machine_id
     
     if [ "$node_type" != "manager" ]

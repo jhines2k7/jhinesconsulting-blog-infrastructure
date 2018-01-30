@@ -2,32 +2,23 @@
 
 manager_machine=$(docker-machine ls --format "{{.Name}}" | grep 'manager')
 
-docker_file="export-data-from-occasion-to-mysql-service.yml"
+docker_file="jhines-consulting-blog.yml"
 directory=/
-env_file=".env"
 
-if [ "$PROVIDER" = "aws" ] && [ "$ENV" = "dev" ]
+if [ "$ENV" = "dev" ]
 then
-    directory=/home/ubuntu/
-    docker_file="export-data-from-occasion-to-mysql-service.dev.yml"
+    docker_file="jhines-consulting-blog.dev.yml"
 fi
 
-if [ "$PROVIDER" = "aws" ] && [ "$ENV" = "test" ]
+if [ "$ENV" = "test" ]
 then
-    directory=/home/ubuntu/
-    docker_file="export-data-from-occasion-to-mysql-service.test.yml"
-fi
-
-if [ "$PROVIDER" = "aws" ] && ([ "$ENV" = "staging" ] || [ "$ENV" = "prod" ])
-then
-    directory=/home/ubuntu/
-    docker_file="export-data-from-occasion-to-mysql-service.aws.yml"
+    docker_file="jhines-consulting-blog.test.yml"
 fi
 
 docker-machine ssh $manager_machine sudo docker login --username=$DOCKER_HUB_USER --password=$DOCKER_HUB_PASSWORD
 
 docker-machine ssh $manager_machine \
     sudo docker stack deploy \
-    --compose-file $directory$docker_file \
+    --compose-file /home/ubuntu/$docker_file \
     --with-registry-auth \
     integration
