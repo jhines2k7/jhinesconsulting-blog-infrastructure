@@ -2,9 +2,9 @@ version: '3'
 
 services:
   blog:
-    image: jhines2017/jhines-consulting-blog:0.8.0
+    image: jhines2017/jhines-consulting-blog:0.14.3
     ports:
-      - "3306:3306"
+      - "80:80"
     deploy:
       restart_policy:
         condition: on-failure
@@ -15,5 +15,77 @@ services:
       placement:
         constraints:
           - engine.labels.node.type==512mb
+  contactformsubmissiontask:
+    image: jhines2017/mock-contact-form-submission-worker:1.0.0
+    ports:
+      - "3000:3000"
+    deploy:
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+        window: 120s
+      replicas: 1
+      placement:
+        constraints:
+          - engine.labels.node.type==512mb
+  mysql:
+    image: mysql:8.0.1
+    deploy:
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+        window: 120s
+      replicas: 1
+      placement:
+        constraints:
+          - engine.labels.node.type==mysql
+    volumes:
+      - /home/ubuntu/schemas:/docker-entrypoint-initdb.d
+      - db_data:/var/lib/mysql
+    ports:
+      - "3306:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=${IF_DB_ROOT_PASS}
+      - MYSQL_USER=ideafoundry
+      - MYSQL_DATABASE=ideafoundry
+      - MYSQL_PASSWORD=${IF_DB_PASSWORD}
+  zookeeper:
+    image: wurstmeister/zookeeper
+    ports:
+      - "2181:2181"
+    deploy:
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+        window: 120s
+      replicas: 1
+      placement:
+        constraints:
+          - engine.labels.node.type==kafka
+  kafka:
+    depends_on:
+      - zookeeper
+    image: wurstmeister/kafka
+    ports:
+      - "9092:9092"
+    deploy:
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+        window: 120s
+      replicas: 1
+      placement:
+        constraints:
+          - engine.labels.node.type==kafka
+    environment:
+      - KAFKA_ADVERTISED_HOST_NAME=${KAFKA_HOST}
+      - KAFKA_ZOOKEEPER_CONNECT=zookeeper:2181
+      - KAFKA_ADVERTISED_PORT=9092
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
 volumes:
   db_data:
