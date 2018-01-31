@@ -3,6 +3,7 @@ const server = jsonServer.create();
 const router = jsonServer.router();
 const middlewares = jsonServer.defaults();
 
+server.use(jsonServer.bodyParser);
 server.post('/contact', (req, res) => {
     res.status(200).jsonp({
         success: "The contact form was submitted successfully"
