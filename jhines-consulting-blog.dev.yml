@@ -15,18 +15,22 @@ services:
       placement:
         constraints:
           - engine.labels.node.type==512mb
-  contactformhttphandlertask:
+  contactformsubmissionhandlertask:
     image: jhines2017/jhines-consulting-contact-form-http-handler-worker:1.0.0
     ports:
       - "80:80"
+    deploy:
+    restart_policy:
+      condition: on-failure
+      delay: 5s
+      max_attempts: 3
+      window: 120s
+    replicas: 1
+    placement:
+      constraints:
+        - engine.labels.node.type==contactformsubmissionservice
   savecontactinfotodbtask:
     image: jhines2017/jhines-consulting-save-contact-info-to-db-worker:1.0.0
-    ports:
-      - "80:80"
-  mockcontactformsubmissiontask:
-    image: jhines2017/mock-contact-form-submission-worker:1.0.0
-    ports:
-      - "3000:3000"
     deploy:
       restart_policy:
         condition: on-failure
@@ -36,7 +40,21 @@ services:
       replicas: 1
       placement:
         constraints:
-          - engine.labels.node.type==512mb
+          - engine.labels.node.type==contactformsubmissionservice
+#  mockcontactformsubmissionservice:
+#    image: jhines2017/mock-contact-form-submission-worker:1.0.0
+#    ports:
+#      - "3000:3000"
+#    deploy:
+#      restart_policy:
+#        condition: on-failure
+#        delay: 5s
+#        max_attempts: 3
+#        window: 120s
+#      replicas: 1
+#      placement:
+#        constraints:
+#          - engine.labels.node.type==512mb
   mysql:
     image: mysql:8.0.1
     deploy:

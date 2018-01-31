@@ -79,6 +79,18 @@ function create_blog_node {
     echo "======> creating blog worker node"
 
     bash ./create-node.sh blog $num_nodes
+
+    echo "======> finished creating blog node..."
+}
+
+function create_contactformsubmissionservice_node {
+    local num_nodes=$1
+
+    echo "======> creating contact form submission service node"
+
+    bash ./create-node.sh contactformsubmissionservice $num_nodes
+
+    echo "======> finished creating contact form submission service node"
 }
 
 > $failed_installs_file
@@ -89,9 +101,9 @@ create_manager_node
 init_swarm_manager
 copy_compose_file
 
-echo "======> creating blog node..."
 create_blog_node 1 &
-echo "======> finished creating blog node..."
+
+create_contactformsubmissionservice_node 1 &
 
 create_512mb_worker_nodes 1 &
 wait

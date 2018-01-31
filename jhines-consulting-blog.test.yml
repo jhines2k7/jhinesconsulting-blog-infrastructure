@@ -3,8 +3,6 @@ version: '3'
 services:
   blog:
     image: jhines2017/jhines-consulting-blog:0.14.3
-    depends_on:
-      - contactformsubmissiontask
     ports:
       - "80:80"
     deploy:
@@ -17,10 +15,22 @@ services:
       placement:
         constraints:
           - engine.labels.node.type==512mb
-  contactformsubmissiontask:
-    image: jhines2017/mock-contact-form-submission-worker:1.0.0
+  contactformsubmissionhandlertask:
+    image: jhines2017/jhines-consulting-contact-form-http-handler-worker:1.0.0
     ports:
-      - "3000:3000"
+      - "80:80"
+    deploy:
+    restart_policy:
+      condition: on-failure
+      delay: 5s
+      max_attempts: 3
+      window: 120s
+    replicas: 1
+    placement:
+      constraints:
+        - engine.labels.node.type==contactformsubmissionservice
+  savecontactinfotodbtask:
+    image: jhines2017/jhines-consulting-save-contact-info-to-db-worker:1.0.0
     deploy:
       restart_policy:
         condition: on-failure
@@ -28,9 +38,27 @@ services:
         max_attempts: 3
         window: 120s
       replicas: 1
+      environment:
+        - MYSQL_USER=jhinesconsulting
+        - MYSQL_DATABASE=jhinesconsulting
+        - MYSQL_PASSWORD=${JHC_DB_PASS}
       placement:
         constraints:
-          - engine.labels.node.type==512mb
+          - engine.labels.node.type==contactformsubmissionservice
+#  mockcontactformsubmissionservice:
+#    image: jhines2017/mock-contact-form-submission-worker:1.0.0
+#    ports:
+#      - "3000:3000"
+#    deploy:
+#      restart_policy:
+#        condition: on-failure
+#        delay: 5s
+#        max_attempts: 3
+#        window: 120s
+#      replicas: 1
+#      placement:
+#        constraints:
+#          - engine.labels.node.type==512mb
   mysql:
     image: mysql:8.0.1
     deploy:
@@ -49,14 +77,12 @@ services:
     ports:
       - "3306:3306"
     environment:
-      - MYSQL_ROOT_PASSWORD=${IF_DB_ROOT_PASS}
-      - MYSQL_USER=ideafoundry
-      - MYSQL_DATABASE=ideafoundry
-      - MYSQL_PASSWORD=${IF_DB_PASSWORD}
+      - MYSQL_ROOT_PASSWORD=${JHC_DB_ROOT_PASS}
+      - MYSQL_USER=jhinesconsulting
+      - MYSQL_DATABASE=jhinesconsulting
+      - MYSQL_PASSWORD=${JHC_DB_PASS}
   zookeeper:
     image: wurstmeister/zookeeper
-    ports:
-      - "2181:2181"
     deploy:
       restart_policy:
         condition: on-failure
@@ -71,8 +97,6 @@ services:
     depends_on:
       - zookeeper
     image: wurstmeister/kafka
-    ports:
-      - "9092:9092"
     deploy:
       restart_policy:
         condition: on-failure
