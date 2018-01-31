@@ -70,7 +70,15 @@ function create_512mb_worker_nodes {
 
     echo "======> creating 512mb worker nodes"
     
-    bash ./create-node.sh 512mb $num_nodes $ENV $PROVIDER
+    bash ./create-node.sh 512mb $num_nodes
+}
+
+function create_blog_node {
+    local num_nodes=$1
+
+    echo "======> creating blog worker node"
+
+    bash ./create-node.sh blog $num_nodes
 }
 
 > $failed_installs_file
@@ -82,8 +90,11 @@ init_swarm_manager
 copy_compose_file
 
 echo "======> creating blog node..."
-create_512mb_worker_nodes 2
+create_blog_node 1 &
 echo "======> finished creating blog node..."
+
+create_512mb_worker_nodes 1 &
+wait
 
 bash ./remove-nodes-with-failed-docker-installations.sh
 

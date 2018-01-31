@@ -47,6 +47,8 @@ function create_node {
     case "$node_type" in
     512mb) instance_type="t2.nano"
         ;;
+    blog) instance_type="t2.nano"
+        ;;
     manager) instance_type="t2.nano"
         ;;
     
@@ -54,7 +56,7 @@ function create_node {
 
     if [ "$ENV" = "dev" ] ||  [ "$ENV" = "test" ]
     then
-        security_group="jhines-consulting-blog-dev-test"
+        security_group="jhines-consulting-blog-test"
     fi
 
     echo "======> launching $instance_type AWS instance..."
