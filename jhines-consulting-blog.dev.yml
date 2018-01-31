@@ -15,7 +15,15 @@ services:
       placement:
         constraints:
           - engine.labels.node.type==512mb
-  contactformsubmissiontask:
+  contactformhttphandlertask:
+    image: jhines2017/jhines-consulting-contact-form-http-handler-worker:1.0.0
+    ports:
+      - "80:80"
+  savecontactinfotodbtask:
+    image: jhines2017/jhines-consulting-save-contact-info-to-db-worker:1.0.0
+    ports:
+      - "80:80"
+  mockcontactformsubmissiontask:
     image: jhines2017/mock-contact-form-submission-worker:1.0.0
     ports:
       - "3000:3000"
