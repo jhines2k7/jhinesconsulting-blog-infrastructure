@@ -1,5 +1,5 @@
 docker/**/*.jar
 scripts/failed_installs.txt
-docker/mock-form-submission-service/node_modules
+docker/mock-contact-form-submission-service/node_modules
 .idea
 *.iml
