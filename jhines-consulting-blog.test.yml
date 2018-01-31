@@ -2,7 +2,7 @@ version: '3'
 
 services:
   blog:
-    image: jhines2017/jhines-consulting-blog:0.12.2
+    image: jhines2017/jhines-consulting-blog:0.12.3
     depends_on:
       - contactformsubmissiontask
     ports:
