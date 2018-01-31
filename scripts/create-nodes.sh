@@ -82,7 +82,7 @@ init_swarm_manager
 copy_compose_file
 
 echo "======> creating blog node..."
-create_512mb_worker_nodes 1
+create_512mb_worker_nodes 2
 echo "======> finished creating blog node..."
 
 bash ./remove-nodes-with-failed-docker-installations.sh

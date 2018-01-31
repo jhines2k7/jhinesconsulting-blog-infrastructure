@@ -3,6 +3,8 @@ version: '3'
 services:
   blog:
     image: jhines2017/jhines-consulting-blog:0.10.0
+    depends_on:
+      - contactformsubmissiontask
     ports:
       - "80:80"
     deploy:
@@ -15,5 +17,17 @@ services:
       placement:
         constraints:
           - engine.labels.node.type==512mb
+  contactformsubmissiontask:
+    image: jhines2017/mock-form-submission-worker:1.0.0
+      deploy:
+        restart_policy:
+          condition: on-failure
+          delay: 5s
+          max_attempts: 3
+          window: 120s
+        replicas: 1
+        placement:
+          constraints:
+            - engine.labels.node.type==512mb
 volumes:
   db_data:
