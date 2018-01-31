@@ -32,7 +32,7 @@ function create_node {
     local ID=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 12 | head -n 1)
     local instance_type="t2.micro"
     local vpc_id="vpc-3670d45e"
-    local security_group="jhines-consulting-blog-test"
+    local security_group="jhines-consulting-blog"
     local machine_id=$node_type-$ID
     local subnet_id="subnet-3f2d8f57"
     local ami="ami-6a5f6a0f"
@@ -52,24 +52,24 @@ function create_node {
     
     esac
 
-    if [ "$ENV" = "dev" ]
-        then
-            security_group="jhines-consulting-blog-dev"
-        fi
+    if [ "$ENV" = "dev" ] ||  [ "$ENV" = "test" ]
+    then
+        security_group="jhines-consulting-blog-dev-test"
+    fi
 
-        echo "======> launching $instance_type AWS instance..."
+    echo "======> launching $instance_type AWS instance..."
 
-        docker-machine create \
-        --engine-label "node.type=$node_type" \
-        --driver amazonec2 \
-        --amazonec2-ami $ami \
-        --amazonec2-vpc-id $vpc_id \
-        --amazonec2-subnet-id $subnet_id \
-        --amazonec2-security-group $security_group \
-        --amazonec2-instance-type $instance_type \
-        --amazonec2-region $aws_region \
-        --amazonec2-zone a \
-        $machine_id
+    docker-machine create \
+    --engine-label "node.type=$node_type" \
+    --driver amazonec2 \
+    --amazonec2-ami $ami \
+    --amazonec2-vpc-id $vpc_id \
+    --amazonec2-subnet-id $subnet_id \
+    --amazonec2-security-group $security_group \
+    --amazonec2-instance-type $instance_type \
+    --amazonec2-region $aws_region \
+    --amazonec2-zone a \
+    $machine_id
     
     if [ ! -e "$failed_installs_file" ] ; then
         touch "$failed_installs_file"
