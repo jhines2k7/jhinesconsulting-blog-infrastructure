@@ -15,40 +15,10 @@ services:
       placement:
         constraints:
           - engine.labels.node.type==512mb
-  contactformsubmissionhandlertask:
-    image: jhines2017/jhines-consulting-contact-form-http-handler-worker:1.0.0
-    ports:
-      - "80:80"
-    deploy:
-    restart_policy:
-      condition: on-failure
-      delay: 5s
-      max_attempts: 3
-      window: 120s
-    replicas: 1
-    placement:
-      constraints:
-        - engine.labels.node.type==contactformsubmissionservice
-  savecontactinfotodbtask:
-    image: jhines2017/jhines-consulting-save-contact-info-to-db-worker:1.0.0
-    deploy:
-      restart_policy:
-        condition: on-failure
-        delay: 5s
-        max_attempts: 3
-        window: 120s
-      replicas: 1
-      environment:
-        - MYSQL_USER=jhinesconsulting
-        - MYSQL_DATABASE=jhinesconsulting
-        - MYSQL_PASSWORD=${JHC_DB_PASS}
-      placement:
-        constraints:
-          - engine.labels.node.type==contactformsubmissionservice
-#  mockcontactformsubmissionservice:
-#    image: jhines2017/mock-contact-form-submission-worker:1.0.0
+#  contactformsubmissionhandlertask:
+#    image: jhines2017/jhines-consulting-contact-form-http-handler-worker:1.0.0
 #    ports:
-#      - "3000:3000"
+#      - "80:80"
 #    deploy:
 #      restart_policy:
 #        condition: on-failure
@@ -58,31 +28,27 @@ services:
 #      replicas: 1
 #      placement:
 #        constraints:
-#          - engine.labels.node.type==512mb
-  mysql:
-    image: mysql:8.0.1
-    deploy:
-      restart_policy:
-        condition: on-failure
-        delay: 5s
-        max_attempts: 3
-        window: 120s
-      replicas: 1
-      placement:
-        constraints:
-          - engine.labels.node.type==mysql
-    volumes:
-      - /home/ubuntu/schemas:/docker-entrypoint-initdb.d
-      - db_data:/var/lib/mysql
+#          - engine.labels.node.type==contactformsubmissionservice
+#  savecontactinfotodbtask:
+#    image: jhines2017/jhines-consulting-save-contact-info-to-db-worker:1.0.0
+#    deploy:
+#      restart_policy:
+#        condition: on-failure
+#        delay: 5s
+#        max_attempts: 3
+#        window: 120s
+#      replicas: 1
+#      environment:
+#        - MYSQL_USER=jhinesconsulting
+#        - MYSQL_DATABASE=jhinesconsulting
+#        - MYSQL_PASSWORD=${JHC_DB_PASS}
+#      placement:
+#        constraints:
+#          - engine.labels.node.type==contactformsubmissionservice
+  mockcontactformsubmissionservice:
+    image: jhines2017/mock-contact-form-submission-worker:1.0.0
     ports:
-      - "3306:3306"
-    environment:
-      - MYSQL_ROOT_PASSWORD=${JHC_DB_ROOT_PASS}
-      - MYSQL_USER=jhinesconsulting
-      - MYSQL_DATABASE=jhinesconsulting
-      - MYSQL_PASSWORD=${JHC_DB_PASS}
-  zookeeper:
-    image: wurstmeister/zookeeper
+      - "3000:3000"
     deploy:
       restart_policy:
         condition: on-failure
@@ -92,26 +58,60 @@ services:
       replicas: 1
       placement:
         constraints:
-          - engine.labels.node.type==kafka
-  kafka:
-    depends_on:
-      - zookeeper
-    image: wurstmeister/kafka
-    deploy:
-      restart_policy:
-        condition: on-failure
-        delay: 5s
-        max_attempts: 3
-        window: 120s
-      replicas: 1
-      placement:
-        constraints:
-          - engine.labels.node.type==kafka
-    environment:
-      - KAFKA_ADVERTISED_HOST_NAME=${KAFKA_HOST}
-      - KAFKA_ZOOKEEPER_CONNECT=zookeeper:2181
-      - KAFKA_ADVERTISED_PORT=9092
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-volumes:
-  db_data:
+          - engine.labels.node.type==512mb
+#  mysql:
+#    image: mysql:8.0.1
+#    deploy:
+#      restart_policy:
+#        condition: on-failure
+#        delay: 5s
+#        max_attempts: 3
+#        window: 120s
+#      replicas: 1
+#      placement:
+#        constraints:
+#          - engine.labels.node.type==mysql
+#    volumes:
+#      - /home/ubuntu/schemas:/docker-entrypoint-initdb.d
+#      - db_data:/var/lib/mysql
+#    ports:
+#      - "3306:3306"
+#    environment:
+#      - MYSQL_ROOT_PASSWORD=${JHC_DB_ROOT_PASS}
+#      - MYSQL_USER=jhinesconsulting
+#      - MYSQL_DATABASE=jhinesconsulting
+#      - MYSQL_PASSWORD=${JHC_DB_PASS}
+#  zookeeper:
+#    image: wurstmeister/zookeeper
+#    deploy:
+#      restart_policy:
+#        condition: on-failure
+#        delay: 5s
+#        max_attempts: 3
+#        window: 120s
+#      replicas: 1
+#      placement:
+#        constraints:
+#          - engine.labels.node.type==kafka
+#  kafka:
+#    depends_on:
+#      - zookeeper
+#    image: wurstmeister/kafka
+#    deploy:
+#      restart_policy:
+#        condition: on-failure
+#        delay: 5s
+#        max_attempts: 3
+#        window: 120s
+#      replicas: 1
+#      placement:
+#        constraints:
+#          - engine.labels.node.type==kafka
+#    environment:
+#      - KAFKA_ADVERTISED_HOST_NAME=${KAFKA_HOST}
+#      - KAFKA_ZOOKEEPER_CONNECT=zookeeper:2181
+#      - KAFKA_ADVERTISED_PORT=9092
+#    volumes:
+#      - /var/run/docker.sock:/var/run/docker.sock
+#volumes:
+#  db_data:
