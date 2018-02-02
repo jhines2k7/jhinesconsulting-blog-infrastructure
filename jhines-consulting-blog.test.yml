@@ -2,7 +2,7 @@ version: '3'
 
 services:
   blog:
-    image: jhines2017/jhines-consulting-blog:0.15.3
+    image: jhines2017/jhines-consulting-blog:0.16.3
     ports:
       - "80:80"
     deploy:
