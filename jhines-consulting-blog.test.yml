@@ -45,7 +45,7 @@ services:
 #      placement:
 #        constraints:
 #          - engine.labels.node.type==contactformsubmissionservice
-  mockcontactformsubmissionservice:
+  mockcontactformsubmissiontask:
     image: jhines2017/mock-contact-form-submission-worker:1.0.0
     ports:
       - "3000:3000"
