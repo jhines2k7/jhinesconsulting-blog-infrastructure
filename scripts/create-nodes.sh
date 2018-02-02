@@ -103,7 +103,7 @@ copy_compose_file
 
 create_blog_node 1 &
 
-create_contactformsubmissionservice_node 1 &
+#create_contactformsubmissionservice_node 1 &
 
 create_512mb_worker_nodes 1 &
 wait
