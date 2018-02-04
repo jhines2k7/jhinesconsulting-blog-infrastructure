@@ -4,7 +4,7 @@ services:
   blog:
     depends_on:
       - mockcontactformsubmissiontask
-    image: jhines2017/jhines-consulting-blog:0.18.3
+    image: jhines2017/jhines-consulting-blog:0.19.3
     ports:
       - "80:80"
     deploy:
