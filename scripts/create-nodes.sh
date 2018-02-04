@@ -102,7 +102,7 @@ function create_mock_contact_form_submission_service_node {
 
     echo "======> finished creating contact form submission service node"
 
-    bash ./set-contact-form-service-ip.sh
+    . set-contact-form-service-ip.sh
 
     bash /home/james/projects/jhines-consulting-blog/shell_scripts/build.sh
 }
