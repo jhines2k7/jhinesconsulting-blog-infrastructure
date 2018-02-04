@@ -119,7 +119,6 @@ create_blog_node 1 &
 
 #create_contactformsubmissionservice_node 1 &
 create_mock_contact_form_submission_service_node 1 &
-#create_512mb_worker_nodes 1 &
 wait
 
 bash ./remove-nodes-with-failed-docker-installations.sh
