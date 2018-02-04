@@ -102,12 +102,7 @@ function create_mock_contact_form_submission_service_node {
 
     echo "======> finished creating contact form submission service node"
 
-    # get ip address of mockcontactformsubmissionservice
-    # assign it to env variable
-    export CONTACT_FORM_SUBMISSION_SERVICE_IP=$(get_ip mockcontactformsubmissionservice):3000
-
-    echo "Contact form submission service ip: "
-    echo $CONTACT_FORM_SUBMISSION_SERVICE_IP
+    bash ./set-contact-form-service-ip.sh
 
     bash /home/james/projects/jhines-consulting-blog/shell_scripts/build.sh
 }
