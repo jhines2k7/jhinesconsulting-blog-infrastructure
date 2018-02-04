@@ -104,10 +104,7 @@ function create_mock_contact_form_submission_service_node {
 
     source set-contact-form-service-ip.sh
 
-    echo "Contact form submission service ip: "
-    echo $CONTACT_FORM_SUBMISSION_SERVICE_IP
-
-    bash /home/james/projects/jhines-consulting-blog/shell_scripts/build.sh
+    source /home/james/projects/jhines-consulting-blog/shell_scripts/build.sh
 }
 
 > $failed_installs_file
