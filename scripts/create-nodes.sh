@@ -93,6 +93,25 @@ function create_contactformsubmissionservice_node {
     echo "======> finished creating contact form submission service node"
 }
 
+function create_mock_contact_form_submission_service_node {
+    local num_nodes=$1
+
+    echo "======> creating contact form submission service node"
+
+    bash ./create-node.sh mockcontactformsubmissionservice $num_nodes
+
+    echo "======> finished creating contact form submission service node"
+
+    # get ip address of mockcontactformsubmissionservice
+    # assign it to env variable
+    export CONTACT_FORM_SUBMISSION_SERVICE_IP=$(get_ip mockcontactformsubmissionservice):3000
+
+    echo "Contact form submission service ip: "
+    echo $CONTACT_FORM_SUBMISSION_SERVICE_IP
+
+    bash /home/james/projects/jhines-consulting-blog/shell_scripts/build.sh
+}
+
 > $failed_installs_file
 
 bash ./remove-all-nodes.sh
@@ -104,8 +123,8 @@ copy_compose_file
 create_blog_node 1 &
 
 #create_contactformsubmissionservice_node 1 &
-
-create_512mb_worker_nodes 1 &
+create_mock_contact_form_submission_service_node 1 &
+#create_512mb_worker_nodes 1 &
 wait
 
 bash ./remove-nodes-with-failed-docker-installations.sh

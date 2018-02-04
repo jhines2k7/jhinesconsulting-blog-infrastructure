@@ -67,6 +67,8 @@ function create_node {
         ;;
     manager) instance_type="t2.nano"
         ;;
+    mockcontactformsubmissionservice) instance_type="t2.nano"
+        ;;
 
     esac
 
