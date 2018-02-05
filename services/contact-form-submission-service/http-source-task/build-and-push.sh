@@ -1,3 +1,4 @@
 #!/usr/bin/env bash
-docker login --username=$DOCKER_HUB_USER --password=$DOCKER_HUB_PASSWORD \
-&& docker push ideafoundry/save-occasion-order-to-mysql-worker:$VERSION-SNAPSHOT
+docker build -t jhines2017/http-source-worker:10-1.3.1.RELEASE . \
+&& docker login --username=$DOCKER_HUB_USER --password=$DOCKER_HUB_PASSWORD \
+&& docker push jhines2017/http-source-worker:10-1.3.1.RELEASE
