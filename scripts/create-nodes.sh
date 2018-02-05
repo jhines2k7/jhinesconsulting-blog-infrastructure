@@ -60,7 +60,14 @@ function init_swarm_manager {
     docker-machine ssh $manager_machine sudo docker swarm init --advertise-addr $ip
 }
 
-function copy_compose_files {
+function copy_compose_file {
+    echo "======> copying compose file to manager node ..."
+    docker-machine scp ../services/docker-stack.yml $(get_manager_machine_name):/home/ubuntu/
+}
+
+function merge_compose_files {
+    echo "======> running compose config to create a merged compose file"
+
     local blog_compose_file="../services/blog/blog.yml"
     local kafka_compose_file="../services/backing-services/kafka-service.yml"
     local http_source_compose_file="../services/contact-form-submission-service/http-source-task/http-source-task.yml"
@@ -70,9 +77,14 @@ function copy_compose_files {
         kafka_compose_file="../services/backing-services/kafka-service.dev.yml"
     fi
 
-    echo "======> copying compose files to manager node ..."
-    docker-machine scp $kafka_compose_file $(get_manager_machine_name):/home/ubuntu/
-    docker-machine scp $http_source_compose_file $(get_manager_machine_name):/home/ubuntu/
+    echo "======> running docker compose to create a merged compose file"
+    docker-compose \
+    -f $kafka_compose_file \
+    -f $http_source_compose_file config \
+    > ../services/docker-stack.yml
+
+    echo "======> contents of the merged compose file"
+    cat ../services/docker-stack.yml
 }
 
 function create_512mb_worker_nodes {
@@ -120,7 +132,9 @@ bash ./remove-all-nodes.sh
 
 create_manager_node
 init_swarm_manager
-copy_compose_files
+
+merge_compose_files
+copy_compose_file
 
 echo "======> creating kafka node ..."
 create_kafka_node
