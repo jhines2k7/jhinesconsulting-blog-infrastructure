@@ -1,20 +1,20 @@
 version: '3'
 
 services:
-  blog:
-    image: jhines2017/jhines-consulting-blog:0.14.3
-    ports:
-      - "80:80"
-    deploy:
-      restart_policy:
-        condition: on-failure
-        delay: 5s
-        max_attempts: 3
-        window: 120s
-      replicas: 1
-      placement:
-        constraints:
-          - engine.labels.node.type==512mb
+#  blog:
+#    image: jhines2017/jhines-consulting-blog:0.23.3
+#    ports:
+#      - "80:80"
+#    deploy:
+#      restart_policy:
+#        condition: on-failure
+#        delay: 5s
+#        max_attempts: 3
+#        window: 120s
+#      replicas: 1
+#      placement:
+#        constraints:
+#          - engine.labels.node.type==512mb
   contactformsubmissionhandlertask:
     image: jhines2017/jhines-consulting-contact-form-http-handler-worker:1.0.0
     ports:
