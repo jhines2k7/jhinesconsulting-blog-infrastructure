@@ -1,0 +1,35 @@
+version: '3'
+
+services:
+  zookeeper:
+    image: wurstmeister/zookeeper
+    deploy:
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+        window: 120s
+      replicas: 1
+      placement:
+        constraints:
+          - engine.labels.node.type==kafka
+  kafka:
+    depends_on:
+      - zookeeper
+    image: wurstmeister/kafka
+    deploy:
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+        window: 120s
+      replicas: 1
+      placement:
+        constraints:
+          - engine.labels.node.type==kafka
+    environment:
+      - KAFKA_ADVERTISED_HOST_NAME=${KAFKA_HOST}
+      - KAFKA_ZOOKEEPER_CONNECT=zookeeper:2181
+      - KAFKA_ADVERTISED_PORT=9092
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
