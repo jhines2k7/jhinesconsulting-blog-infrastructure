@@ -60,17 +60,16 @@ function create_node {
     # t2.micro=1
     # t2.small=2
 
-#    case "$node_type" in
-#    512mb) instance_type="t2.nano"
-#        ;;
-#    blog) instance_type="t2.nano"
-#        ;;
+    case "$node_type" in
+    contactformsubmissionservice) instance_type="t2.small"
+        ;;
+    kafka) instance_type="t2.micro"
+        ;;
 #    manager) instance_type="t2.nano"
 #        ;;
-#    mockcontactformsubmissionservice) instance_type="t2.nano"
+#    contactformsubmissionservice) instance_type="t2.small"
 #        ;;
-#
-#    esac
+    esac
 
     if [ "$ENV" = "dev" ] ||  [ "$ENV" = "test" ]
     then
