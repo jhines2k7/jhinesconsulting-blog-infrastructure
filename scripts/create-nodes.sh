@@ -94,6 +94,17 @@ function create_blog_node {
     echo "======> finished creating blog node..."
 }
 
+function create_kafka_node {
+    bash ./create-node.sh kafka 1
+
+    result=$?
+
+    if [ $result -ne 0 ]
+    then
+        exit 1
+    fi
+}
+
 function create_contactformsubmissionservice_node {
     local num_nodes=$1
 
@@ -112,9 +123,26 @@ create_manager_node
 init_swarm_manager
 copy_compose_files
 
-create_blog_node 1 &
+echo "======> creating kafka node ..."
+create_kafka_node
 
-create_contactformsubmissionservice_node 1 &
+create_kafka_result=$?
+
+if [ $create_kafka_result -ne 0 ]
+then
+    echo "There was an error installing docker on the kafka node. The script will now exit."
+
+    echo "=====> Cleaning up..."
+
+    bash ./remove-all-nodes.sh
+
+    exit 1
+fi
+echo "======> finished creating kafka node ..."
+
+#create_blog_node 1 &
+
+create_contactformsubmissionservice_node 1
 wait
 
 bash ./remove-nodes-with-failed-docker-installations.sh
