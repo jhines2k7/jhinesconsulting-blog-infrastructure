@@ -71,7 +71,6 @@ function copy_compose_files {
     fi
 
     echo "======> copying compose files to manager node ..."
-
     docker-machine scp $kafka_compose_file $(get_manager_machine_name):/home/ubuntu/
     docker-machine scp $http_source_compose_file $(get_manager_machine_name):/home/ubuntu/
 }
