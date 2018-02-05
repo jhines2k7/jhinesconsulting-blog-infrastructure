@@ -46,7 +46,7 @@ function copy_sql_schema {
 function create_node {
     local node_type=$1
     local ID=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 12 | head -n 1)
-    local instance_type="t2.micro"
+    local instance_type="t2.nano"
     local vpc_id="vpc-3670d45e"
     local security_group="jhines-consulting-blog"
     local machine_id=$node_type-$ID
@@ -60,17 +60,17 @@ function create_node {
     # t2.micro=1
     # t2.small=2
 
-    case "$node_type" in
-    512mb) instance_type="t2.nano"
-        ;;
-    blog) instance_type="t2.nano"
-        ;;
-    manager) instance_type="t2.nano"
-        ;;
-    mockcontactformsubmissionservice) instance_type="t2.nano"
-        ;;
-
-    esac
+#    case "$node_type" in
+#    512mb) instance_type="t2.nano"
+#        ;;
+#    blog) instance_type="t2.nano"
+#        ;;
+#    manager) instance_type="t2.nano"
+#        ;;
+#    mockcontactformsubmissionservice) instance_type="t2.nano"
+#        ;;
+#
+#    esac
 
     if [ "$ENV" = "dev" ] ||  [ "$ENV" = "test" ]
     then
