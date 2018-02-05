@@ -41,12 +41,12 @@ function set_manager_node_env_variables {
     fi
 
     ./runremote.sh \
-       ./set-manager-env-variables.sh \
-       $(get_manager_machine_name)  \
-       "$kafka_host" \
-       "$zookeeper_host" \
-       "$DOCKER_HUB_USER" \
-       "$DOCKER_HUB_PASSWORD"
+    ./set-manager-env-variables.sh \
+    $(get_manager_machine_name)  \
+    "$kafka_host" \
+    "$zookeeper_host" \
+    "$DOCKER_HUB_USER" \
+    "$DOCKER_HUB_PASSWORD"
 }
 
 function init_swarm_manager {
