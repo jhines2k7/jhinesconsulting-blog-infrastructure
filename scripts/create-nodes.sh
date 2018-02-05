@@ -60,22 +60,21 @@ function init_swarm_manager {
     docker-machine ssh $manager_machine sudo docker swarm init --advertise-addr $ip
 }
 
-function copy_compose_file {
-    local docker_file="../jhines-consulting-blog.yml"
+function copy_compose_files {
+    local kafka_file="../services/backing-services/kafka-service.yml"
+    local http_source_file="../services/contact-form-submission-service/http-source-task/http-source-task.yml"
 
     if [ "$ENV" = "dev" ]
     then
-        docker_file="../jhines-consulting-blog.dev.yml"
+        echo "======> copying compose files to manager node ..."
+
+        kafka_file="../services/backing-services/kafka-service.dev.yml"
+        docker-machine scp kafka_file $(get_manager_machine_name):/home/ubuntu/
+    else
+        docker-machine scp kafka_file $(get_manager_machine_name):/home/ubuntu/
+        docker-machine scp http_source_file $(get_manager_machine_name):/home/ubuntu/
     fi
 
-    if [ "$ENV" = "test" ]
-    then
-        docker_file="../jhines-consulting-blog.test.yml"
-    fi
-
-    echo "======> copying compose file to manager node ..."
-    
-    docker-machine scp $docker_file $(get_manager_machine_name):$directory
 }
 
 function create_512mb_worker_nodes {
@@ -106,27 +105,13 @@ function create_contactformsubmissionservice_node {
     echo "======> finished creating contact form submission service node"
 }
 
-function create_mock_contact_form_submission_service_node {
-    local num_nodes=$1
-
-    echo "======> creating contact form submission service node"
-
-    bash ./create-node.sh mockcontactformsubmissionservice $num_nodes
-
-    echo "======> finished creating contact form submission service node"
-
-    source set-contact-form-service-ip.sh
-
-    source /home/james/projects/jhines-consulting-blog/shell_scripts/build.sh
-}
-
 > $failed_installs_file
 
 bash ./remove-all-nodes.sh
 
 create_manager_node
 init_swarm_manager
-copy_compose_file
+copy_compose_files
 
 create_blog_node 1 &
 

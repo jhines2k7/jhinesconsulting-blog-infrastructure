@@ -2,23 +2,25 @@
 
 manager_machine=$(docker-machine ls --format "{{.Name}}" | grep 'manager')
 
-docker_file="jhines-consulting-blog.yml"
-directory=/
+kafka_file="kafka-service.yml"
+http_source_file="http-source-task.yml"
 
 if [ "$ENV" = "dev" ]
 then
-    docker_file="jhines-consulting-blog.dev.yml"
-fi
-
-if [ "$ENV" = "test" ]
-then
-    docker_file="jhines-consulting-blog.test.yml"
+    kafka_file="kafka-service.dev.yml"
 fi
 
 docker-machine ssh $manager_machine sudo docker login --username=$DOCKER_HUB_USER --password=$DOCKER_HUB_PASSWORD
 
+compose_file="docker-stack.yml"
+
+docker-machine ssh $manager_machine sudo docker-compose \
+    -f $kafka_file \
+    -f $http_source_file config \
+    > /home/ubuntu/$compose_file
+
 docker-machine ssh $manager_machine \
     sudo docker stack deploy \
-    --compose-file /home/ubuntu/$docker_file \
+    --compose-file /home/ubuntu/$compose_file \
     --with-registry-auth \
-    integration
+    blog
