@@ -61,20 +61,18 @@ function init_swarm_manager {
 }
 
 function copy_compose_files {
-    local kafka_file="../services/backing-services/kafka-service.yml"
-    local http_source_file="../services/contact-form-submission-service/http-source-task/http-source-task.yml"
+    local kafka_compose_file="../services/backing-services/kafka-service.yml"
+    local http_source_compose_file="../services/contact-form-submission-service/http-source-task/http-source-task.yml"
 
     if [ "$ENV" = "dev" ]
     then
-        echo "======> copying compose files to manager node ..."
-
-        kafka_file="../services/backing-services/kafka-service.dev.yml"
-        docker-machine scp kafka_file $(get_manager_machine_name):/home/ubuntu/
-    else
-        docker-machine scp kafka_file $(get_manager_machine_name):/home/ubuntu/
-        docker-machine scp http_source_file $(get_manager_machine_name):/home/ubuntu/
+        kafka_compose_file="../services/backing-services/kafka-service.dev.yml"
     fi
 
+    echo "======> copying compose files to manager node ..."
+
+    docker-machine scp $kafka_compose_file $(get_manager_machine_name):/home/ubuntu/
+    docker-machine scp $http_source_compose_file $(get_manager_machine_name):/home/ubuntu/
 }
 
 function create_512mb_worker_nodes {
