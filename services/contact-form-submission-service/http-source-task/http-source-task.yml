@@ -10,11 +10,11 @@ services:
         max_attempts: 3
         window: 120s
       replicas: 1
-      environment:
-        - ZOOKEEPER_HOST
-        - KAFKA_HOST
       placement:
         constraints:
           - engine.labels.node.type==contactformsubmissionservice
+    environment:
+      - ZOOKEEPER_HOST
+      - KAFKA_HOST
     ports:
       - "3000:3000"
