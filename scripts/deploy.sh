@@ -15,10 +15,14 @@ docker-machine ssh $manager_machine sudo docker login --username=$DOCKER_HUB_USE
 
 compose_file="docker-stack.yml"
 
+echo "======> running compose config to create a merged compose file"
 docker-machine ssh $manager_machine sudo docker-compose \
     -f $kafka_compose_file \
     -f $http_source_compose_file config \
     > /home/ubuntu/$compose_file
+
+echo "======> contents of the merged compose file"
+docker-machine ssh $manager_machine cat /home/ubuntu/$compose_file
 
 docker-machine ssh $manager_machine \
     sudo docker stack deploy \
