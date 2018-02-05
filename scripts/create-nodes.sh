@@ -61,6 +61,7 @@ function init_swarm_manager {
 }
 
 function copy_compose_files {
+    local blog_compose_file="../services/blog/blog.yml"
     local kafka_compose_file="../services/backing-services/kafka-service.yml"
     local http_source_compose_file="../services/contact-form-submission-service/http-source-task/http-source-task.yml"
 

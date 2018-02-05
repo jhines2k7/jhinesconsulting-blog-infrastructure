@@ -1,0 +1,19 @@
+version: '3'
+
+services:
+  blog:
+    depends_on:
+      - mockcontactformsubmissiontask
+    image: jhines2017/jhines-consulting-blog:0.23.3
+    ports:
+      - "80:80"
+    deploy:
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+        window: 120s
+      replicas: 1
+      placement:
+        constraints:
+          - engine.labels.node.type==blog

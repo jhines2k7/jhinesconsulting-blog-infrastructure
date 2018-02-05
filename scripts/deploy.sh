@@ -2,6 +2,7 @@
 
 manager_machine=$(docker-machine ls --format "{{.Name}}" | grep 'manager')
 
+blog_compose_file="blog.yml"
 kafka_compose_file="kafka-service.yml"
 http_source_compose_file="http-source-task.yml"
 
