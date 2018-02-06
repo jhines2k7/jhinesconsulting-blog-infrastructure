@@ -67,7 +67,7 @@ function merge_compose_files {
 
     echo "======> running docker compose to create a merged compose file"
     docker-compose \
-    -f $log_sink_service_compose_file \
+    -f $db_sink_task_compose_file \
     -f $http_source_task_compose_file \
     -f $kafka_service_compose_file config \
     > ../services/docker-stack.yml
@@ -129,9 +129,12 @@ function create_mysql_node {
 }
 
 function build_and_push_services {
-    bash ../services/backing-services/log-sink-service/build-and-push.sh
-#    bash ../services/contact-form-submission-service/db-sink-task/build-and-push.sh
-#    bash ../services/contact-form-submission-service/http-source-task/build-and-push.sh
+    echo "======> Running build and push commands for spring cloud stream app starters"
+    bash ../services/backing-services/log-sink-service/build-and-push.sh &
+    bash ../services/contact-form-submission-service/db-sink-task/build-and-push.sh &
+    bash ../services/contact-form-submission-service/http-source-task/build-and-push.sh &
+
+    wait
 }
 
 > $failed_installs_file
@@ -175,5 +178,7 @@ set_manager_node_env_variables
 merge_compose_files
 
 copy_compose_file
+
+build_and_push_services
 
 docker-machine ls

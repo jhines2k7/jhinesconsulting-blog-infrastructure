@@ -15,7 +15,8 @@ services:
       placement:
         constraints:
           - engine.labels.node.type==contactformsubmissionservice
-  environment:
-    - DB_HOST
-    - JHC_DB_USER
-    - JHC_DB_PASS
+    environment:
+      - DB_HOST
+      - JHC_DB_USER
+      - JHC_DB_PASS
+      - HTTP_SOURCE_OUTPUT_CHANNEL

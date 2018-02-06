@@ -15,5 +15,5 @@ services:
       placement:
         constraints:
           - engine.labels.node.type==contactformsubmissionservice
-  environment:
-    - LOGGING_INPUT_DESTINATION
+    environment:
+      - LOGGING_INPUT_DESTINATION
