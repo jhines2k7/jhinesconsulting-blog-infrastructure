@@ -15,5 +15,7 @@ services:
       placement:
         constraints:
           - engine.labels.node.type==contactformsubmissionservice
+    environment:
+      - HTTP_SOURCE_OUTPUT_CHANNEL
     ports:
       - "3000:3000"
