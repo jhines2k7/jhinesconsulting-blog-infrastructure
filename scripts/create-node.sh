@@ -63,7 +63,7 @@ function create_node {
     case "$node_type" in
     contactformsubmissionservice) instance_type="t2.small"
         ;;
-    kafka) instance_type="t2.micro"
+    kafka) instance_type="t2.small"
         ;;
 #    manager) instance_type="t2.nano"
 #        ;;
