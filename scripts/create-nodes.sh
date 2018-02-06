@@ -115,6 +115,12 @@ function create_contactformsubmissionservice_node {
     echo "======> finished creating contact form submission service node"
 }
 
+function build_and_push_services {
+    bash ../services/backing-services/log-sink-service/build-and-push.sh
+#    bash ../services/contact-form-submission-service/db-sink-task/build-and-push.sh
+#    bash ../services/contact-form-submission-service/http-source-task/build-and-push.sh
+}
+
 > $failed_installs_file
 
 bash ./remove-all-nodes.sh
