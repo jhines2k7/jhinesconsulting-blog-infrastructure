@@ -82,8 +82,7 @@ function merge_compose_files {
 
     echo "======> running docker compose to create a merged compose file"
     docker-compose \
-    -f $kafka_compose_file \
-    -f $http_source_compose_file config \
+    -f $kafka_compose_file config \
     > ../services/docker-stack.yml
 
     echo "======> contents of the merged compose file"
@@ -155,7 +154,7 @@ echo "======> finished creating kafka node ..."
 
 #create_blog_node 1 &
 
-create_contactformsubmissionservice_node 1
+#create_contactformsubmissionservice_node 1
 wait
 
 bash ./remove-nodes-with-failed-docker-installations.sh
