@@ -158,4 +158,6 @@ merge_compose_files
 
 copy_compose_file
 
+build_and_push_services
+
 docker-machine ls
