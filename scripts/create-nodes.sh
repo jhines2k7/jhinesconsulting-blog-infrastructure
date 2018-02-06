@@ -135,9 +135,6 @@ bash ./remove-all-nodes.sh
 create_manager_node
 init_swarm_manager
 
-merge_compose_files
-copy_compose_file
-
 echo "======> creating kafka node ..."
 create_kafka_node
 
@@ -163,5 +160,8 @@ wait
 bash ./remove-nodes-with-failed-docker-installations.sh
 
 set_manager_node_env_variables
+
+merge_compose_files
+copy_compose_file
 
 docker-machine ls
