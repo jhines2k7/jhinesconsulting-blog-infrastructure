@@ -1,0 +1,22 @@
+version: '3'
+
+services:
+  logsinkservice:
+    depends_on:
+      - kafka
+    image: jhines2017/log-sink-service:10-1.3.1.RELEASE
+    deploy:
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+        window: 120s
+      replicas: 1
+      placement:
+        constraints:
+          - engine.labels.node.type==contactformsubmissionservice
+  environment:
+    - DB_HOST
+    - JHC_DB_USER
+    - JHC_DB_PASS
+    - LOGGING_INPUT_DESTINATION
