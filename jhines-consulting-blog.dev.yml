@@ -22,8 +22,6 @@ services:
       - "3000:3000"
   zookeeper:
     image: wurstmeister/zookeeper
-    ports:
-      - "2181:2181"
     deploy:
       restart_policy:
         condition: on-failure
@@ -38,8 +36,6 @@ services:
     depends_on:
       - zookeeper
     image: wurstmeister/kafka
-    ports:
-      - "9092:9092"
     deploy:
       restart_policy:
         condition: on-failure
