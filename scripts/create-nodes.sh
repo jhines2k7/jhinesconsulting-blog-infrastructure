@@ -117,9 +117,11 @@ function create_contactformsubmissionservice_node {
 
 function build_and_push_services {
     echo "======> Running build and push commands for spring cloud stream app starters"
-    bash ../services/backing-services/log-sink-service/build-and-push.sh
-    bash ../services/contact-form-submission-service/db-sink-task/build-and-push.sh
-    bash ../services/contact-form-submission-service/http-source-task/build-and-push.sh
+    bash ../services/backing-services/log-sink-service/build-and-push.sh &
+    bash ../services/contact-form-submission-service/db-sink-task/build-and-push.sh &
+    bash ../services/contact-form-submission-service/http-source-task/build-and-push.sh &
+
+    wait
 }
 
 > $failed_installs_file
