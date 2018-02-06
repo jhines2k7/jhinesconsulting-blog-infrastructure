@@ -57,14 +57,17 @@ function copy_compose_file {
 function merge_compose_files {
     echo "======> running compose config to create a merged compose file"
 
-    local blog_compose_file="../services/blog/blog.yml"
-    local kafka_compose_file="../services/backing-services/kafka-service.yml"
-    local http_source_compose_file="../services/contact-form-submission-service/http-source-task/http-source-task.yml"
+    local blog_ui_compose_file="../services/blog/blog.yml"
+    local kafka_service_compose_file="../services/backing-services/kafka-service.yml"
+    local log_sink_service_compose_file="../services/backing-services/log-sink-service/log-sink-service.yml"
+    local http_source_task_compose_file="../services/contact-form-submission-service/http-source-task/http-source-task.yml"
+    local db_sink_task_compose_file="../services/contact-form-submission-service/db-sink-task/db-sink-task.yml"
 
     echo "======> running docker compose to create a merged compose file"
     docker-compose \
-    -f $http_source_compose_file \
-    -f $kafka_compose_file config \
+    -f $log_sink_service_compose_file \
+    -f $http_source_task_compose_file \
+    -f $kafka_service_compose_file config \
     > ../services/docker-stack.yml
 
     echo "======> contents of the merged compose file"
