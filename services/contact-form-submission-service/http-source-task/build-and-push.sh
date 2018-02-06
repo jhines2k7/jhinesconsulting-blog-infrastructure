@@ -1,4 +1,8 @@
 #!/usr/bin/env bash
+
+# changing context
+cd ../services/contact-form-submission-service/http-source-task
+
 # download the jar file and save to this directory
 FILE=http-source-kafka-10-1.3.1.RELEASE.jar
 echo "=======> Checking for http source jar file..."

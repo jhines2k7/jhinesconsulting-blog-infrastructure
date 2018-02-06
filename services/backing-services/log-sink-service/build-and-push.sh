@@ -1,7 +1,11 @@
 #!/usr/bin/env bash
 
+# changing context
+cd ../services/backing-services/log-sink-service
+
 #check if jar file has already been downloaded
 FILE=log-sink-kafka-10-1.3.1.RELEASE.jar
+
 echo "=======> Checking for log sink jar file..."
 if [ -f $FILE ]; then
    echo "=======> ...log sink jar file has already been downloaded"
