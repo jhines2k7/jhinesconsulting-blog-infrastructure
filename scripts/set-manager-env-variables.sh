@@ -8,5 +8,6 @@ echo "=======> setting env variables for manager node"
     echo "JHC_DB_USER=$3"
     echo "JHC_DB_PASS=$4"
     echo "JHC_DB_ROOT_PASS=$5"
-    echo "LOGGING_INPUT_DESTINATION=$6"
+    echo "HTTP_SOURCE_OUTPUT_CHANNEL=$6"
+    echo "LOGGING_INPUT_DESTINATION=$7"
 } | sudo tee -a /etc/environment > /dev/null
