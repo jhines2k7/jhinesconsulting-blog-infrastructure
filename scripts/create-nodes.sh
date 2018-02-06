@@ -49,8 +49,7 @@ function init_swarm_manager {
 
 function copy_compose_file {
     echo "======> copying compose file to manager node ..."
-#    docker-machine scp ../services/docker-stack.yml $(get_manager_machine_name):/home/ubuntu/
-    docker-machine scp ../jhines-consulting-blog.dev.yml $(get_manager_machine_name):/home/ubuntu/
+    docker-machine scp ../services/docker-stack.yml $(get_manager_machine_name):/home/ubuntu/
 }
 
 function merge_compose_files {
@@ -60,13 +59,9 @@ function merge_compose_files {
     local kafka_compose_file="../services/backing-services/kafka-service.yml"
     local http_source_compose_file="../services/contact-form-submission-service/http-source-task/http-source-task.yml"
 
-    if [ "$ENV" = "dev" ]
-    then
-        kafka_compose_file="../services/backing-services/kafka-service.dev.yml"
-    fi
-
     echo "======> running docker compose to create a merged compose file"
     docker-compose \
+    -f $http_source_compose_file \
     -f $kafka_compose_file config \
     > ../services/docker-stack.yml
 
@@ -146,7 +141,8 @@ bash ./remove-nodes-with-failed-docker-installations.sh
 
 set_manager_node_env_variables
 
-#merge_compose_files
+merge_compose_files
+
 copy_compose_file
 
 docker-machine ls
