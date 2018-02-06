@@ -40,7 +40,7 @@ function copy_sql_schema {
         exit 1
     fi
 
-    docker-machine scp ../docker/db/ideafoundry.sql $mysql_machine:$sql_directory
+    docker-machine scp ../docker/db/jhinesconsulting-blog.sql $mysql_machine:$sql_directory
 }
 
 function create_node {
@@ -65,10 +65,8 @@ function create_node {
         ;;
     kafka) instance_type="t2.small"
         ;;
-#    manager) instance_type="t2.nano"
-#        ;;
-#    contactformsubmissionservice) instance_type="t2.small"
-#        ;;
+    mysql-jhc) instance_type="t2.micro"
+        ;;
     esac
 
     if [ "$ENV" = "dev" ] ||  [ "$ENV" = "test" ]
@@ -110,7 +108,7 @@ function create_node {
         return 1
     fi
 
-    if [ "$node_type" = "mysql" ]
+    if [ "$node_type" = "mysql-jhc" ]
     then
         copy_sql_schema
 

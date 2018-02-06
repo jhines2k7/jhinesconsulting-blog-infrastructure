@@ -119,7 +119,7 @@ function create_contactformsubmissionservice_node {
 function create_mysql_node {
     echo "======> creating mysql worker node"
 
-    bash ./create-node.sh mysql 1
+    bash ./create-node.sh mysql-jhc 1
 
     result=$?
 
