@@ -1,36 +1,10 @@
 version: '3'
 
 services:
-#  blog:
-#    image: jhines2017/jhines-consulting-blog:0.23.3
-#    ports:
-#      - "80:80"
-#    deploy:
-#      restart_policy:
-#        condition: on-failure
-#        delay: 5s
-#        max_attempts: 3
-#        window: 120s
-#      replicas: 1
-#      placement:
-#        constraints:
-#          - engine.labels.node.type==512mb
-  contactformsubmissionhandlertask:
-    image: jhines2017/jhines-consulting-contact-form-http-handler-worker:1.0.0
-    ports:
-      - "80:80"
-    deploy:
-    restart_policy:
-      condition: on-failure
-      delay: 5s
-      max_attempts: 3
-      window: 120s
-    replicas: 1
-    placement:
-      constraints:
-        - engine.labels.node.type==contactformsubmissionservice
-  savecontactinfotodbtask:
-    image: jhines2017/jhines-consulting-save-contact-info-to-db-worker:1.0.0
+  httpsourcetask:
+    depends_on:
+      - kafka
+    image: jhines2017/http-source-worker:10-1.3.1.RELEASE
     deploy:
       restart_policy:
         condition: on-failure
@@ -41,42 +15,11 @@ services:
       placement:
         constraints:
           - engine.labels.node.type==contactformsubmissionservice
-#  mockcontactformsubmissionservice:
-#    image: jhines2017/mock-contact-form-submission-worker:1.0.0
-#    ports:
-#      - "3000:3000"
-#    deploy:
-#      restart_policy:
-#        condition: on-failure
-#        delay: 5s
-#        max_attempts: 3
-#        window: 120s
-#      replicas: 1
-#      placement:
-#        constraints:
-#          - engine.labels.node.type==512mb
-  mysql:
-    image: mysql:8.0.1
-    deploy:
-      restart_policy:
-        condition: on-failure
-        delay: 5s
-        max_attempts: 3
-        window: 120s
-      replicas: 1
-      placement:
-        constraints:
-          - engine.labels.node.type==mysql
-    volumes:
-      - /home/ubuntu/schemas:/docker-entrypoint-initdb.d
-      - db_data:/var/lib/mysql
-    ports:
-      - "3306:3306"
     environment:
-      - MYSQL_ROOT_PASSWORD=${IF_DB_ROOT_PASS}
-      - MYSQL_USER=ideafoundry
-      - MYSQL_DATABASE=ideafoundry
-      - MYSQL_PASSWORD=${IF_DB_PASSWORD}
+      - ZOOKEEPER_HOST
+      - KAFKA_HOST
+    ports:
+      - "3000:3000"
   zookeeper:
     image: wurstmeister/zookeeper
     ports:
