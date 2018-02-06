@@ -33,7 +33,9 @@ function set_manager_node_env_variables {
     ./set-manager-env-variables.sh \
     $(get_manager_machine_name)  \
     "$DOCKER_HUB_USER" \
-    "$DOCKER_HUB_PASSWORD"
+    "$DOCKER_HUB_PASSWORD" \
+    "$JHC_DB_USER" \
+    "$JHC_DB_PASS"
 }
 
 function init_swarm_manager {
