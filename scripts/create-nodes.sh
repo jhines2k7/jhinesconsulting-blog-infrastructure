@@ -66,7 +66,7 @@ function init_swarm_manager {
 function copy_compose_file {
     echo "======> copying compose file to manager node ..."
 #    docker-machine scp ../services/docker-stack.yml $(get_manager_machine_name):/home/ubuntu/
-    docker-machine scp jhines-consulting-blog.dev.yml $(get_manager_machine_name):/home/ubuntu/
+    docker-machine scp ../jhines-consulting-blog.dev.yml $(get_manager_machine_name):/home/ubuntu/
 }
 
 function merge_compose_files {
