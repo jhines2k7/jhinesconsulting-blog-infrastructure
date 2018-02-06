@@ -6,6 +6,6 @@ docker-machine ssh $manager_machine sudo docker login --username=$DOCKER_HUB_USE
 
 docker-machine ssh $manager_machine \
     sudo docker stack deploy \
-    --compose-file /home/ubuntu/docker-stack.yml \
+    --compose-file /home/ubuntu/jhines-consulting-blog.dev.yml \
     --with-registry-auth \
     blog
