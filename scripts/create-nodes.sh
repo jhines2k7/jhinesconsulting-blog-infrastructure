@@ -115,6 +115,19 @@ function create_contactformsubmissionservice_node {
     echo "======> finished creating contact form submission service node"
 }
 
+function create_mysql_node {
+    echo "======> creating mysql worker node"
+
+    bash ./create-node.sh mysql 1
+
+    result=$?
+
+    if [ $result -ne 0 ]
+    then
+        exit 1
+    fi
+}
+
 function build_and_push_services {
     bash ../services/backing-services/log-sink-service/build-and-push.sh
 #    bash ../services/contact-form-submission-service/db-sink-task/build-and-push.sh
@@ -128,14 +141,19 @@ bash ./remove-all-nodes.sh
 create_manager_node
 init_swarm_manager
 
-echo "======> creating kafka node ..."
-create_kafka_node
+echo "======> creating kafka and mysql nodes ..."
+create_kafka_node &
+create_mysql_node &
 
+wait %1
 create_kafka_result=$?
 
-if [ $create_kafka_result -ne 0 ]
+wait %2
+create_mysql_result=$?
+
+if [ $create_kafka_result -ne 0 ] || [ $create_mysql_result -ne 0 ]
 then
-    echo "There was an error installing docker on the kafka node. The script will now exit."
+    echo "There was an error installing docker on the mysql or kafka node. The script will now exit."
 
     echo "=====> Cleaning up..."
 
@@ -143,7 +161,7 @@ then
 
     exit 1
 fi
-echo "======> finished creating kafka node ..."
+echo "======> finished creating kafka and mysql nodes ..."
 
 #create_blog_node 1 &
 #wait
