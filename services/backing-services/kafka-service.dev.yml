@@ -33,7 +33,7 @@ services:
           - engine.labels.node.type==kafka
     environment:
       - KAFKA_ADVERTISED_HOST_NAME=${KAFKA_HOST}
-      - KAFKA_ZOOKEEPER_CONNECT=zookeeper:2181
+      - KAFKA_ZOOKEEPER_CONNECT=${ZOOKEEPER_HOST}:2181
       - KAFKA_ADVERTISED_PORT=9092
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
