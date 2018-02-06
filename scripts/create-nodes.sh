@@ -29,25 +29,9 @@ function create_manager_node {
 }
 
 function set_manager_node_env_variables {
-    local kafka_host="kafka"
-    local zookeeper_host="zookeeper"
-
-    if [ "$ENV" = "dev" ]
-    then
-        kafka_machine_ip=$(get_ip $(docker-machine ls --format "{{.Name}}" | grep 'kafka'))
-
-        kafka_host=$kafka_machine_ip
-        zookeeper_host=$kafka_machine_ip
-    fi
-
-    export KAFKA_HOST=$kafka_host
-    export ZOOKEEPER_HOST=$zookeeper_host
-
     ./runremote.sh \
     ./set-manager-env-variables.sh \
     $(get_manager_machine_name)  \
-    "$kafka_host" \
-    "$zookeeper_host" \
     "$DOCKER_HUB_USER" \
     "$DOCKER_HUB_PASSWORD"
 }
