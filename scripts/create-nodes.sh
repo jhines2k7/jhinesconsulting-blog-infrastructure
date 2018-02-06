@@ -41,7 +41,7 @@ function set_manager_node_env_variables {
     fi
 
     export KAFKA_HOST=$kafka_host
-    export ZOOKEEPER_HOST=$kafka_host
+    export ZOOKEEPER_HOST=$zookeeper_host
 
     ./runremote.sh \
     ./set-manager-env-variables.sh \
