@@ -30,6 +30,7 @@ function copy_compose_file {
 }
 
 function build_and_push_services {
+    echo "======> LOGGING_INPUT_DESTINATION: $LOGGING_INPUT_DESTINATION"
     echo "======> Running build and push commands for spring cloud stream app starters"
     bash ../services/backing-services/log-sink-service/build-and-push.sh &
     bash ../services/contact-form-submission-service/db-sink-task/build-and-push.sh &
