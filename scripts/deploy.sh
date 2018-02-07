@@ -30,6 +30,17 @@ function copy_compose_file {
     docker-machine scp ../services/docker-stack.yml $manager_machine:/home/ubuntu/
 }
 
+function build_and_push_services {
+    echo "======> Running build and push commands for spring cloud stream app starters"
+    bash ../services/backing-services/log-sink-service/build-and-push.sh &
+    bash ../services/contact-form-submission-service/db-sink-task/build-and-push.sh &
+    bash ../services/contact-form-submission-service/http-source-task/build-and-push.sh &
+
+    wait
+}
+
+build_and_push_services
+
 merge_compose_files
 
 copy_compose_file

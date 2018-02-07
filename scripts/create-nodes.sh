@@ -104,15 +104,6 @@ function create_mysql_node {
     fi
 }
 
-function build_and_push_services {
-    echo "======> Running build and push commands for spring cloud stream app starters"
-    bash ../services/backing-services/log-sink-service/build-and-push.sh &
-    bash ../services/contact-form-submission-service/db-sink-task/build-and-push.sh &
-    bash ../services/contact-form-submission-service/http-source-task/build-and-push.sh &
-
-    wait
-}
-
 > $failed_installs_file
 
 bash ./remove-all-nodes.sh
@@ -150,7 +141,5 @@ create_contactformsubmissionservice_node 1
 bash ./remove-nodes-with-failed-docker-installations.sh
 
 set_manager_node_env_variables
-
-build_and_push_services
 
 docker-machine ls
