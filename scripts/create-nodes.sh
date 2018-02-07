@@ -89,6 +89,10 @@ function create_contactformsubmissionservice_node {
     bash ./create-node.sh contactformsubmissionservice $num_nodes
 
     echo "======> finished creating contact form submission service node"
+
+    source set-contact-form-service-ip.sh
+
+    source /home/james/projects/jhines-consulting-blog/shell_scripts/build.sh
 }
 
 function create_mysql_node {

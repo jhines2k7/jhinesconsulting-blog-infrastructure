@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 function get_contact_form_submission_service_machine_name {
-    echo $(docker-machine ls --format "{{.Name}}" | grep 'mockcontactformsubmissionservice')
+    echo $(docker-machine ls --format "{{.Name}}" | grep 'contactformsubmissionservice')
 }
 
 machine=$(get_contact_form_submission_service_machine_name)
