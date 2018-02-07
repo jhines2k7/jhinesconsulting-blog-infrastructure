@@ -3,7 +3,7 @@ version: '3'
 services:
   httpsourcetask:
     depends_on:
-      - kafka
+      - dbsinktask
     image: jhines2017/http-source-worker:10-1.3.1.RELEASE
     deploy:
       restart_policy:
