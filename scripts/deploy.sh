@@ -41,3 +41,6 @@ docker-machine ssh $manager_machine \
     --compose-file /home/ubuntu/docker-stack.yml \
     --with-registry-auth \
     blog
+
+#remove merged compose file
+rm ../services/docker-stack.yml
