@@ -1,7 +1,7 @@
 version: '3'
 
 services:
-  httpsourcetask:
+  formsubmissionrequesthandlertask:
     depends_on:
       - dbsinktask
     image: jhines2017/contact-form-submission-request-handler-worker:1.0.0-SNAPSHOT

@@ -1,6 +1,6 @@
 #!/bin/bash
 
 #remove all but mysql node
-for machine in $(docker-machine ls --format "{{.Name}}" | grep 'manager\|512mb\|blog\|mock\|kafka\|contact');
+for machine in $(docker-machine ls --format "{{.Name}}" | grep 'manager\|512mb\|blog\|mock\|kafka\|contact\|form');
     do docker-machine rm -f $machine; 
 done
