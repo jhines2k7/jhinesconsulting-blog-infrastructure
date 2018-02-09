@@ -14,7 +14,7 @@ services:
       replicas: 1
       placement:
         constraints:
-          - engine.labels.node.type==contactformsubmissionservice
+          - engine.labels.node.type==formhandler
     environment:
       - HTTP_SOURCE_OUTPUT_CHANNEL
       - ZOOKEEPER_HOST

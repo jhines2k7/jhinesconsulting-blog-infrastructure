@@ -61,7 +61,7 @@ function create_node {
     # t2.small=2
 
     case "$node_type" in
-    contactformsubmissionservice) instance_type="t2.small"
+    contactformsubmissionservice) instance_type="t2.micro"
         ;;
     kafka) instance_type="t2.small"
         ;;
