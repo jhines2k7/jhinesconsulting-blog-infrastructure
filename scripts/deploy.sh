@@ -5,8 +5,12 @@ function merge_compose_files {
     local kafka_service_compose_file="../services/backing-services/kafka-service.yml"
     local mysql_service_compose_file="../services/backing-services/mysql-service.yml"
     local log_sink_service_compose_file="../services/backing-services/log-sink-service/log-sink-service.yml"
-    local http_source_task_compose_file="../services/contact-form-submission-service/http-source-task/http-source-task.yml"
+    local contact_form_submission_request_task_compose_file="../services/contact-form-submission-service/contact-form-submission-request-handler-task/contact-form-submission-request-handler-task.yml"
     local db_sink_task_compose_file="../services/contact-form-submission-service/db-sink-task/db-sink-task.yml"
+
+    if [ "$ENV" = "dev" ] ; then
+        kafka_service_compose_file="../services/backing-services/kafka-service.dev.yml"
+    fi
 
     echo "======> running docker compose config to create a merged compose file"
 
@@ -14,7 +18,7 @@ function merge_compose_files {
     -f $blog_ui_compose_file \
     -f $db_sink_task_compose_file \
     -f $log_sink_service_compose_file \
-    -f $http_source_task_compose_file \
+    -f $contact_form_submission_request_task_compose_file \
     -f $mysql_service_compose_file \
     -f $kafka_service_compose_file config \
     > ../services/docker-stack.yml

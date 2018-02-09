@@ -3,5 +3,5 @@ scripts/failed_installs.txt
 docker/mock-contact-form-submission-service/node_modules
 .idea
 *.iml
-/services/contact-form-submission-service/http-source-task/http-source-kafka-10-1.3.1.RELEASE.jar
+/services/contact-form-submission-service/contact-form-submission-request-handler-task/http-source-kafka-10-1.3.1.RELEASE.jar
 /services/contact-form-submission-service/db-sink-task/jdbc-sink-kafka-10-1.3.1.RELEASE.jar
