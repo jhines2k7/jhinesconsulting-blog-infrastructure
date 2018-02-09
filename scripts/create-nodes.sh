@@ -29,6 +29,17 @@ function create_manager_node {
 }
 
 function set_manager_node_env_variables {
+    local kafka_host="kafka"
+    local zookeeper_host="zookeeper"
+
+    if [ "$ENV" = "dev" ]
+    then
+        kafka_machine_ip=$(get_ip $(docker-machine ls --format "{{.Name}}" | grep 'kafka'))
+
+        kafka_host=$kafka_machine_ip
+        zookeeper_host=$kafka_machine_ip
+    fi
+
     ./runremote.sh \
     ./set-manager-env-variables.sh \
     $(get_manager_machine_name)  \
@@ -38,7 +49,9 @@ function set_manager_node_env_variables {
     "$JHC_DB_PASS" \
     "$JHC_DB_ROOT_PASS" \
     "$HTTP_SOURCE_OUTPUT_CHANNEL" \
-    "$LOGGING_INPUT_DESTINATION"
+    "$LOGGING_INPUT_DESTINATION" \
+    "$kafka_host" \
+    "$zookeeper_host"
 }
 
 function init_swarm_manager {
