@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
 
 function merge_compose_files {
-    local blog_ui_compose_file="../services/blog/blog.yml"
+    local blog_ui_compose_file="../services/blog/blog-ui.yml"
     local kafka_service_compose_file="../services/backing-services/kafka-service.yml"
     local mysql_service_compose_file="../services/backing-services/mysql-service.yml"
     local log_sink_service_compose_file="../services/backing-services/log-sink-service/log-sink-service.yml"
-    local contact_form_submission_request_task_compose_file="../services/contact-form-submission-service/contact-form-submission-request-handler-task/contact-form-submission-request-handler-task.yml"
+    local contact_form_submission_request_task_compose_file="../services/contact-form-submission-service/contact-form-submission-request-handler-task/contact-request-handler-task.yml"
     local db_sink_task_compose_file="../services/contact-form-submission-service/db-sink-task/db-sink-task.yml"
 
     if [ "$ENV" = "dev" ] ; then
@@ -35,7 +35,7 @@ function copy_compose_file {
 }
 
 function build_and_push_services {
-    echo "======> LOGGING_INPUT_DESTINATION: $LOGGING_INPUT_DESTINATION"
+    echo "======> LOGGING_INPUT_CHANNEL: $LOGGING_INPUT_CHANNEL"
     echo "======> Running build and push commands for spring cloud stream app starters"
     bash ../services/backing-services/log-sink-service/build-and-push.sh &
     bash ../services/contact-form-submission-service/db-sink-task/build-and-push.sh &
