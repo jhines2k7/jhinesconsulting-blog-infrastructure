@@ -17,5 +17,7 @@ services:
           - engine.labels.node.type==contactformsubmissionservice
     environment:
       - HTTP_SOURCE_OUTPUT_CHANNEL
+      - ZOOKEEPER_HOST
+      - KAFKA_HOST
     ports:
       - "3000:3000"
