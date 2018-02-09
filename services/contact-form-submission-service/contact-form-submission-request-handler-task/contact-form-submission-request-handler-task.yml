@@ -1,9 +1,9 @@
 version: '3'
 
 services:
-  contact_form_service__handle_form_submission_task:
+  contact_form_service__handle_contact_form_request_task:
     depends_on:
-      - dbsinktask
+      - contact_form_service__save_contact_to_db_task
     image: jhines2017/contact-form-submission-request-handler-worker:1.0.0-SNAPSHOT
     deploy:
       restart_policy:
@@ -14,7 +14,7 @@ services:
       replicas: 1
       placement:
         constraints:
-          - engine.labels.node.type==formhandler
+          - engine.labels.node.type==contactrequesthandler
     environment:
       - ZOOKEEPER_HOST
       - KAFKA_HOST

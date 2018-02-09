@@ -121,10 +121,10 @@ function create_mysql_node {
     fi
 }
 
-function create_form_handler_node {
-    echo "======> creating mysql worker node"
+function create_contact_request_handler_node {
+    echo "======> creating contact request handler node"
 
-    bash ./create-node.sh formhandler 1
+    bash ./create-node.sh contactrequesthandler 1
 
     result=$?
 }
@@ -160,7 +160,7 @@ echo "======> finished creating kafka and mysql nodes ..."
 
 create_blog_node 1 &
 create_contact_form_submission_service_node 1 &
-create_form_handler_node 1 &
+create_contact_request_handler_node &
 wait
 
 bash ./remove-nodes-with-failed-docker-installations.sh
