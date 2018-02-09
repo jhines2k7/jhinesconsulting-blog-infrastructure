@@ -48,8 +48,7 @@ function set_manager_node_env_variables {
     "$JHC_DB_USER" \
     "$JHC_DB_PASS" \
     "$JHC_DB_ROOT_PASS" \
-    "$HTTP_SOURCE_OUTPUT_CHANNEL" \
-    "$LOGGING_INPUT_DESTINATION" \
+    "$CONTACT_REQUEST_OUTPUT_CHANNEL" \
     "$kafka_host" \
     "$zookeeper_host"
 }
