@@ -151,7 +151,7 @@ fi
 echo "======> finished creating kafka and mysql nodes ..."
 
 create_blog_node 1 &
-create_contactformsubmissionservice_node 1 &
+create_contactformsubmissionservice_node 2 &
 wait
 
 bash ./remove-nodes-with-failed-docker-installations.sh
