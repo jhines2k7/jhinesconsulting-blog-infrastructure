@@ -4,7 +4,7 @@ services:
   httpsourcetask:
     depends_on:
       - dbsinktask
-    image: jhines2017/http-source-worker:10-1.3.2.BUILD-SNAPSHOT
+    image: jhines2017/contact-form-submission-request-handler-worker
     deploy:
       restart_policy:
         condition: on-failure
