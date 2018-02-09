@@ -103,7 +103,7 @@ function create_contact_form_submission_service_node {
 
     echo "======> finished creating contact form submission service node"
 
-    source set-contact-form-service-ip.sh
+    source set-contact-request-handler-ip.sh
 
     source /home/james/projects/jhines-consulting-blog/shell_scripts/build.sh
 }
