@@ -94,7 +94,7 @@ function create_kafka_node {
     fi
 }
 
-function create_contactformsubmissionservice_node {
+function create_contact_form_submission_service_node {
     local num_nodes=$1
 
     echo "======> creating contact form submission service node"
@@ -159,7 +159,7 @@ fi
 echo "======> finished creating kafka and mysql nodes ..."
 
 create_blog_node 1 &
-create_contactformsubmissionservice_node 1 &
+create_contact_form_submission_service_node 1 &
 create_form_handler_node 1 &
 wait
 
