@@ -94,12 +94,12 @@ function create_kafka_node {
     fi
 }
 
-function create_contact_form_submission_service_node {
+function create_contact_form_service_node {
     local num_nodes=$1
 
     echo "======> creating contact form submission service node"
 
-    bash ./create-node.sh contactformsubmissionservice $num_nodes
+    bash ./create-node.sh contactformservice $num_nodes
 
     echo "======> finished creating contact form submission service node"
 
@@ -159,7 +159,7 @@ fi
 echo "======> finished creating kafka and mysql nodes ..."
 
 create_blog_node 1 &
-create_contact_form_submission_service_node 1 &
+create_contact_form_service_node 1 &
 create_contact_request_handler_node &
 wait
 
