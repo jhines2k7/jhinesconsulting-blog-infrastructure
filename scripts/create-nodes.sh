@@ -102,9 +102,9 @@ function create_contact_form_service_node {
 
     echo "======> finished creating contact form submission service node"
 
-    source set-contact-request-handler-ip.sh
+#    source set-contact-request-handler-ip.sh
 
-    source /home/james/projects/jhines-consulting-blog/shell_scripts/build.sh
+#    source /home/james/projects/jhines-consulting-blog/shell_scripts/build.sh
 }
 
 function create_mysql_node {
