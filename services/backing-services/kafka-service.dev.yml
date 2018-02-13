@@ -3,6 +3,8 @@ version: '3'
 services:
   zookeeper:
     image: wurstmeister/zookeeper
+    ports:
+      - 2181:2181
     deploy:
       restart_policy:
         condition: on-failure
