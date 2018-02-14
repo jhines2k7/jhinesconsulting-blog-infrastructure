@@ -12,6 +12,9 @@ function merge_compose_files {
         kafka_service_compose_file="../services/backing-services/kafka-service.dev.yml"
     fi
 
+    echo "======> KAFKA_HOST: $KAFKA_HOST"
+    echo "======> ZOOKEEPER_HOST: $ZOOKEEPER_HOST"
+
     echo "======> running docker compose config to create a merged compose file"
 
 #    docker-compose \

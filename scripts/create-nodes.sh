@@ -40,6 +40,9 @@ function set_manager_node_env_variables {
         zookeeper_host=$kafka_machine_ip
     fi
 
+    export KAFKA_HOST=$kafka_machine_ip
+    export ZOOKEEPER_HOST=$kafka_machine_ip
+
     ./runremote.sh \
     ./set-manager-env-variables.sh \
     $(get_manager_machine_name)  \
