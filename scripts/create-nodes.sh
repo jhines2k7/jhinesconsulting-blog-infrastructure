@@ -44,6 +44,7 @@ function set_manager_node_env_variables {
 
     export KAFKA_HOST=$kafka_machine_ip
     export ZOOKEEPER_HOST=$kafka_machine_ip
+    export DB_HOST=$mysql_host
 
     ./runremote.sh \
     ./set-manager-env-variables.sh \

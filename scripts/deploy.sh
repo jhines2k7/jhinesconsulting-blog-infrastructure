@@ -14,6 +14,7 @@ function merge_compose_files {
 
     echo "======> KAFKA_HOST: $KAFKA_HOST"
     echo "======> ZOOKEEPER_HOST: $ZOOKEEPER_HOST"
+    echo "======> DB_HOST: $DB_HOST"
 
     echo "======> running docker compose config to create a merged compose file"
 
