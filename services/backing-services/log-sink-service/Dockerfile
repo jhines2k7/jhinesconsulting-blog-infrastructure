@@ -1,4 +1,4 @@
-FROM java:8
+FROM openjdk:9.0.1-jre-slim
 
 VOLUME /tmp
 
