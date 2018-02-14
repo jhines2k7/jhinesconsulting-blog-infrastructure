@@ -16,4 +16,4 @@ services:
         constraints:
           - engine.labels.node.type==contactformservice
     environment:
-      - CONTACT_REQUEST_OUTPUT_CHANNEL
+      - LOGGING_INPUT_CHANNEL
