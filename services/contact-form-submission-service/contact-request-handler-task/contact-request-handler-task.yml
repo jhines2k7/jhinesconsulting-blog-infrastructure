@@ -4,7 +4,7 @@ services:
   contact_form_service__handle_contact_request_task:
     depends_on:
       - kafka
-    image: jhines2017/contact-request-handler-worker:1.4.0-SNAPSHOT
+    image: jhines2017/contact-request-handler-worker:1.5.0-SNAPSHOT
     deploy:
       restart_policy:
         condition: on-failure

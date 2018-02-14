@@ -165,7 +165,7 @@ fi
 echo "======> finished creating kafka and mysql nodes ..."
 
 create_contact_form_service_node 1 &
-#create_contact_request_handler_node &
+create_contact_request_handler_node &
 #create_blog_ui_node 1 &
 wait
 
