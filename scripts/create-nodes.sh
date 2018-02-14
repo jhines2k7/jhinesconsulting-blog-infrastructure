@@ -31,10 +31,12 @@ function create_manager_node {
 function set_manager_node_env_variables {
     local kafka_host="kafka"
     local zookeeper_host="zookeeper"
+    local mysql_host="mysql"
 
     if [ "$ENV" = "dev" ]
     then
         kafka_machine_ip=$(get_ip $(docker-machine ls --format "{{.Name}}" | grep 'kafka'))
+        mysql_host=$(get_ip $(docker-machine ls --format "{{.Name}}" | grep 'mysql'))
 
         kafka_host=$kafka_machine_ip
         zookeeper_host=$kafka_machine_ip
@@ -53,7 +55,8 @@ function set_manager_node_env_variables {
     "$JHC_DB_ROOT_PASS" \
     "$CONTACT_REQUEST_OUTPUT_CHANNEL" \
     "$kafka_host" \
-    "$zookeeper_host"
+    "$zookeeper_host" \
+    "$mysql_host"
 }
 
 function init_swarm_manager {

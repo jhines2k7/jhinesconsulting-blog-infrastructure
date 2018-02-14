@@ -11,4 +11,5 @@ echo "=======> setting env variables for manager node"
     echo "CONTACT_REQUEST_OUTPUT_CHANNEL=$6"
     echo "KAFKA_HOST=$7"
     echo "ZOOKEEPER_HOST=$8"
+    echo "DB_HOST=$9"
 } | sudo tee -a /etc/environment > /dev/null
