@@ -79,7 +79,7 @@ function create_512mb_worker_nodes {
     bash ./create-node.sh 512mb $num_nodes
 }
 
-function create_blog_node {
+function create_blog_ui_node {
     local num_nodes=$1
 
     echo "======> creating blog worker node"
@@ -87,6 +87,8 @@ function create_blog_node {
     bash ./create-node.sh blog $num_nodes
 
     echo "======> finished creating blog node..."
+
+    source /home/james/projects/jhines-consulting-blog/shell_scripts/build.sh
 }
 
 function create_kafka_node {
@@ -108,10 +110,6 @@ function create_contact_form_service_node {
     bash ./create-node.sh contactformservice $num_nodes
 
     echo "======> finished creating contact form submission service node"
-
-#    source set-contact-request-handler-ip.sh
-
-#    source /home/james/projects/jhines-consulting-blog/shell_scripts/build.sh
 }
 
 function create_mysql_node {
@@ -133,6 +131,8 @@ function create_contact_request_handler_node {
     bash ./create-node.sh contactrequesthandler 1
 
     result=$?
+
+    source set-contact-request-handler-ip.sh
 }
 
 > $failed_installs_file
@@ -164,10 +164,11 @@ then
 fi
 echo "======> finished creating kafka and mysql nodes ..."
 
-#create_blog_node 1 &
 create_contact_form_service_node 1 &
 create_contact_request_handler_node &
 wait
+
+#create_blog_ui_node 1
 
 bash ./remove-nodes-with-failed-docker-installations.sh
 
