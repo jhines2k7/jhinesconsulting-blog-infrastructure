@@ -36,7 +36,7 @@ function set_manager_node_env_variables {
     if [ "$ENV" = "dev" ]
     then
         kafka_machine_ip=$(get_ip $(docker-machine ls --format "{{.Name}}" | grep 'kafka'))
-        mysql_host=$(get_ip $(docker-machine ls --format "{{.Name}}" | grep 'mysql'))
+        mysql_host=$(get_ip $(docker-machine ls --format "{{.Name}}" | grep 'mysql-jhc'))
 
         kafka_host=$kafka_machine_ip
         zookeeper_host=$kafka_machine_ip
