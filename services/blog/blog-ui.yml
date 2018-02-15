@@ -16,4 +16,4 @@ services:
       replicas: 1
       placement:
         constraints:
-          - engine.labels.node.type==blog
+          - engine.labels.node.type==blog-ui
