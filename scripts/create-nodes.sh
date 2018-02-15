@@ -174,4 +174,6 @@ bash ./remove-nodes-with-failed-docker-installations.sh
 
 set_manager_node_env_variables
 
+cd /home/james/projects/jhines-consulting-blog-docker
+
 docker-machine ls
