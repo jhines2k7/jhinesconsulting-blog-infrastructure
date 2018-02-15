@@ -87,8 +87,6 @@ function create_blog_ui_node {
     bash ./create-node.sh blog-ui $num_nodes
 
     echo "======> finished creating blog node..."
-
-    source /home/james/projects/jhines-consulting-blog/shell_scripts/build.sh
 }
 
 function create_kafka_node {
@@ -133,6 +131,8 @@ function create_contact_request_handler_node {
     result=$?
 
     source set-contact-request-handler-ip.sh
+
+    source /home/james/projects/jhines-consulting-blog/shell_scripts/build.sh
 }
 
 > $failed_installs_file
