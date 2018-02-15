@@ -84,7 +84,7 @@ function create_blog_ui_node {
 
     echo "======> creating blog worker node"
 
-    bash ./create-node.sh blog $num_nodes
+    bash ./create-node.sh blog-ui $num_nodes
 
     echo "======> finished creating blog node..."
 
