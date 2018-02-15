@@ -1,7 +1,7 @@
 version: '3'
 
 services:
-  blog_ui:
+  ui:
     depends_on:
       - contact_form_service__handle_contact_request_task
     image: jhines2017/jhines-consulting-blog-ui:0.25.3
