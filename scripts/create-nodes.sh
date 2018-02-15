@@ -132,7 +132,9 @@ function create_contact_request_handler_node {
 
     source set-contact-request-handler-ip.sh
 
-    source /home/james/projects/jhines-consulting-blog/shell_scripts/build.sh
+    if [ "$BUILD_UI" = true ] ; then
+        source /home/james/projects/jhines-consulting-blog/shell_scripts/build.sh
+    fi
 }
 
 > $failed_installs_file
@@ -166,9 +168,9 @@ echo "======> finished creating kafka and mysql nodes ..."
 
 create_contact_form_service_node 1 &
 create_contact_request_handler_node &
+#create_blog_ui_node 1
 wait
 
-#create_blog_ui_node 1
 
 bash ./remove-nodes-with-failed-docker-installations.sh
 
