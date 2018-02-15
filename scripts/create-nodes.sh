@@ -168,7 +168,7 @@ create_contact_form_service_node 1 &
 create_contact_request_handler_node &
 wait
 
-create_blog_ui_node 1
+#create_blog_ui_node 1
 
 bash ./remove-nodes-with-failed-docker-installations.sh
 
