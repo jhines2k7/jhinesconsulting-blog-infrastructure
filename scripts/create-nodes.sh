@@ -130,9 +130,9 @@ function create_contact_request_handler_node {
 
     result=$?
 
-    source set-contact-request-handler-ip.sh
-
     if [ "$BUILD_UI" = true ] ; then
+        source set-contact-request-handler-ip.sh
+
         source /home/james/projects/jhines-consulting-blog/shell_scripts/build.sh
     fi
 }

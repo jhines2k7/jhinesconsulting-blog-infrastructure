@@ -19,8 +19,8 @@ function merge_compose_files {
     echo "======> running docker compose config to create a merged compose file"
 
 #    -f $blog_ui_compose_file \
-#    -f $save_contact_to_db_task \
     docker-compose \
+    -f $save_contact_to_db_task \
     -f $contact_request_task_compose_file \
     -f $log_sink_service_compose_file \
     -f $mysql_service_compose_file \
@@ -42,11 +42,10 @@ function copy_compose_file {
 function build_and_push_services {
     echo "======> LOGGING_INPUT_CHANNEL: $LOGGING_INPUT_CHANNEL"
     echo "======> Running build and push commands for spring cloud stream app starters"
-    bash ../services/backing-services/log-sink-service/build-and-push.sh &
+    bash ../services/backing-services/log-sink-service/build-and-push.sh
 #    bash ../services/contact-form-submission-service/db-sink-task/build-and-push.sh &
 #    bash ../services/contact-form-submission-service/http-source-task/build-and-push.sh &
-
-    wait
+#    wait
 }
 
 build_and_push_services
