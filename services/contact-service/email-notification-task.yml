@@ -1,7 +1,7 @@
 version: '3'
 
 services:
-  contact_form_service__handle_contact_request_task:
+  contact_form_service__email_notification_task:
     depends_on:
       - kafka
     image: jhines2017/send-email-notification-worker:1.0.0-SNAPSHOT
@@ -21,3 +21,5 @@ services:
     environment:
       - ZOOKEEPER_HOST
       - KAFKA_HOST
+      - JHC_GMAIL_PASSWORD
+      - JHC_GMAIL_ADDRESS
