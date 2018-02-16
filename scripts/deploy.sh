@@ -5,8 +5,9 @@ function merge_compose_files {
     local kafka_service_compose_file="../services/backing-services/kafka-service.yml"
     local mysql_service_compose_file="../services/backing-services/mysql-service.yml"
     local log_sink_service_compose_file="../services/backing-services/log-sink-service/log-sink-service.yml"
-    local contact_request_task_compose_file="../services/contact-service/contact-request-handler-task/contact-request-handler-task.yml"
-    local save_contact_to_db_task="../services/contact-service/save-contact-to-db-task/save-contact-to-db-task.yml"
+    local contact_request_task_compose_file="../services/contact-service/contact-request-handler-task.yml"
+    local save_contact_to_db_task_compose_file="../services/contact-service/save-contact-to-db-task.yml"
+    local email_notification_task_compose_file="../services/contact-service/email-notification-task.yml"
 
     if [ "$ENV" = "dev" ] ; then
         kafka_service_compose_file="../services/backing-services/kafka-service.dev.yml"
@@ -18,9 +19,10 @@ function merge_compose_files {
 
     echo "======> running docker compose config to create a merged compose file"
 
+#    -f $email_notification_task_compose_file \
     docker-compose \
     -f $blog_ui_compose_file \
-    -f $save_contact_to_db_task \
+    -f $save_contact_to_db_task_compose_file \
     -f $contact_request_task_compose_file \
     -f $log_sink_service_compose_file \
     -f $mysql_service_compose_file \
