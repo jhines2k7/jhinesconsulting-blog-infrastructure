@@ -1,7 +1,5 @@
 # noinspection SqlNoDataSourceInspectionForFile
 
-SET SQL_MODE='ALLOW_INVALID_DATES';
-
 CREATE DATABASE IF NOT EXISTS jhinesconsulting;
 
 USE jhinesconsulting;
@@ -12,7 +10,7 @@ CREATE TABLE contact (
   name        VARCHAR(255),
   email       VARCHAR(255),
   message     LONGTEXT,
-  created     TIMESTAMP,
-  updated     TIMESTAMP
+  created     DATETIME NULL DEFAULT CURRENT_TIMESTAMP,
+  updated     TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP
 )
   ENGINE = InnoDB;
