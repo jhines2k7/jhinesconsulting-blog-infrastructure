@@ -57,7 +57,9 @@ function set_manager_node_env_variables {
     "$LOGGING_INPUT_CHANNEL" \
     "$kafka_host" \
     "$zookeeper_host" \
-    "$mysql_host"
+    "$mysql_host" \
+    "$JHC_GMAIL_PASSWORD" \
+    "$JHC_GMAIL_ADDRESS"
 }
 
 function init_swarm_manager {
