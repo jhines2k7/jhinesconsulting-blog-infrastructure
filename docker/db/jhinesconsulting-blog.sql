@@ -10,6 +10,7 @@ CREATE TABLE contact (
   name        VARCHAR(255),
   email       VARCHAR(255),
   message     LONGTEXT,
-  created     DATE
+  created     DATE,
+  updated     DATE
 )
 ENGINE = InnoDB;
