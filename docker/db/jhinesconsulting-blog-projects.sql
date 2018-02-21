@@ -15,3 +15,5 @@ CREATE TABLE project (
   budget        VARCHAR(255)
 )
 ENGINE = InnoDB;
+
+GRANT SELECT, INSERT, DELETE, UPDATE ON jhinesconsulting_projects TO ${JHC_DB_USER}@'%' IDENTIFIED BY ${JHC_DB_PASS};
