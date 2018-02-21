@@ -8,6 +8,8 @@ function merge_compose_files {
     local contact_request_task_compose_file="../services/contact-service/contact-request-handler-task.yml"
     local save_contact_to_db_task_compose_file="../services/contact-service/save-contact-to-db-task.yml"
     local email_notification_task_compose_file="../services/contact-service/email-notification-task.yml"
+    local create_project_request_handler_task_compose_file="../services/create-project-service/create-project-request-handler-task.yml"
+    local list_projects_service_handler_task_compose_file="../services/list-projects-service/list-projects-service-handler-task.yml"
 
     if [ "$ENV" = "dev" ] ; then
         kafka_service_compose_file="../services/backing-services/kafka-service.dev.yml"
@@ -20,6 +22,8 @@ function merge_compose_files {
     echo "======> running docker compose config to create a merged compose file"
 
     docker-compose \
+    -f $create_project_request_handler_task_compose_file \
+    -f $list_projects_service_handler_task_compose_file \
     -f $email_notification_task_compose_file \
     -f $blog_ui_compose_file \
     -f $save_contact_to_db_task_compose_file \

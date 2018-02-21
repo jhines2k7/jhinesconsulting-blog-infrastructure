@@ -1,10 +1,10 @@
 version: '3'
 
 services:
-  create_project_service__create_project_request_handler_task:
+  list_projects_service__list_projects_request_handler_task:
     depends_on:
-      - kafka
-    image: jhines2017/create-project-request-handler-worker:1.0.0-SNAPSHOT
+      - mysql
+    image: jhines2017/list-projects-request-handler-worker:1.0.0-SNAPSHOT
     deploy:
       restart_policy:
         condition: on-failure
@@ -17,9 +17,10 @@ services:
         delay: 10s
       placement:
         constraints:
-          - engine.labels.node.type==createproject
+          - engine.labels.node.type==listprojectsservice
     environment:
+      - DB_HOST
+      - JHC_DB_USER
+      - JHC_DB_PASS
       - ZOOKEEPER_HOST
       - KAFKA_HOST
-    ports:
-      - "3001:3001"
