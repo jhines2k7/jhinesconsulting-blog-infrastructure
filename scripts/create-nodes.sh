@@ -170,9 +170,12 @@ echo "======> finished creating kafka and mysql nodes ..."
 
 create_contact_form_service_node 1 &
 create_contact_request_handler_node &
-create_blog_ui_node 1
-wait
+create_blog_ui_node 1 &
 
+bash ./create-node.sh createprojectservice 1 &
+bash ./create-node.sh listprojectsservice 1 &
+
+wait
 
 bash ./remove-nodes-with-failed-docker-installations.sh
 
