@@ -24,3 +24,5 @@ services:
       - JHC_DB_PASS
       - ZOOKEEPER_HOST
       - KAFKA_HOST
+    ports:
+      - "3002:3002"
