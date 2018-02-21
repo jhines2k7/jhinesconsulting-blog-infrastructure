@@ -2,7 +2,7 @@ version: '3'
 
 services:
   mysql:
-    image: mysql:8.0.1
+    image: mysql:8.0.4
     deploy:
       restart_policy:
         condition: on-failure
@@ -21,7 +21,6 @@ services:
     environment:
       - MYSQL_ROOT_PASSWORD=${JHC_DB_ROOT_PASS}
       - MYSQL_USER=${JHC_DB_USER}
-      - MYSQL_DATABASE=jhinesconsulting
       - MYSQL_PASSWORD=${JHC_DB_PASS}
 volumes:
   db_data:

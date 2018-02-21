@@ -1,8 +1,8 @@
 # noinspection SqlNoDataSourceInspectionForFile
 
-CREATE DATABASE IF NOT EXISTS jhinesconsulting;
+CREATE DATABASE IF NOT EXISTS jhinesconsulting_contacts;
 
-USE jhinesconsulting;
+USE jhinesconsulting_contacts;
 
 CREATE TABLE contact (
   id          INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -14,3 +14,5 @@ CREATE TABLE contact (
   updated     TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP
 )
   ENGINE = InnoDB;
+
+GRANT SELECT, INSERT, DELETE, UPDATE ON jhinesconsulting_contacts TO ${JHC_DB_USER}@'%' IDENTIFIED BY ${JHC_DB_PASS};
