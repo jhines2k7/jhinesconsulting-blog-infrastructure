@@ -1,8 +1,8 @@
 # noinspection SqlNoDataSourceInspectionForFile
 
-CREATE DATABASE IF NOT EXISTS jhinesconsulting;
+CREATE DATABASE IF NOT EXISTS jhinesconsulting_contacts;
 
-USE jhinesconsulting;
+USE jhinesconsulting_contacts;
 
 CREATE TABLE contact (
   id          INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
