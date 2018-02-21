@@ -40,7 +40,8 @@ function copy_sql_schema {
         exit 1
     fi
 
-    docker-machine scp ../docker/db/jhinesconsulting-blog.sql $mysql_machine:$sql_directory
+    docker-machine scp ../docker/db/jhinesconsulting-blog-contacts.sql $mysql_machine:$sql_directory
+    docker-machine scp ../docker/db/jhinesconsulting-blog-projects.sql $mysql_machine:$sql_directory
 }
 
 function create_node {
