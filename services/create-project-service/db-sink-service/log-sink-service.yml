@@ -1,10 +1,10 @@
 version: '3'
 
 services:
-  create_project_service__create_project_handler_task:
+  logsinkservice:
     depends_on:
       - kafka
-    image: jhines2017/create-project-request-handler-worker:1.0.0-SNAPSHOT
+    image: jhines2017/log-sink-service:10-1.3.1.RELEASE
     deploy:
       restart_policy:
         condition: on-failure
@@ -17,9 +17,6 @@ services:
         delay: 10s
       placement:
         constraints:
-          - engine.labels.node.type==createprojectservice
+          - engine.labels.node.type==contactformservice
     environment:
-      - ZOOKEEPER_HOST
-      - KAFKA_HOST
-    ports:
-      - "3001:3001"
+      - LOGGING_INPUT_CHANNEL
