@@ -21,7 +21,6 @@ services:
     environment:
       - MYSQL_ROOT_PASSWORD=${JHC_DB_ROOT_PASS}
       - MYSQL_USER=${JHC_DB_USER}
-      - MYSQL_DATABASE=jhinesconsulting
       - MYSQL_PASSWORD=${JHC_DB_PASS}
 volumes:
   db_data:
