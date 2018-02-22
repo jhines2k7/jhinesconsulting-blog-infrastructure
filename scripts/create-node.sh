@@ -32,6 +32,8 @@ function copy_sql_schema {
 
     local mysql_machine=$(docker-machine ls --format "{{.Name}}" | grep 'mysql-contacts')
 
+    echo "DB name: $1"
+
     if [ "$1" = "projects" ] ; then
         mysql_machine=$(docker-machine ls --format "{{.Name}}" | grep 'mysql-projects')
     fi
