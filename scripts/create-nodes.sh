@@ -172,12 +172,13 @@ wait %1
 create_kafka_result=$?
 
 wait %2
-create_contacts_db_result=$?
-
-wait %3
 create_projects_db_result=$?
 
-if [ $create_kafka_result -ne 0 ] || [ $create_contacts_db_result -ne 0 ] || [ $create_projects_db_result -ne 0 ]
+#wait %3
+#create_contacts_db_result=$?
+
+if [ $create_kafka_result -ne 0 ] || [ $create_projects_db_result -ne 0 ]
+#if [ $create_kafka_result -ne 0 ] || [ $create_contacts_db_result -ne 0 ] || [ $create_projects_db_result -ne 0 ]
 then
     echo "There was an error installing docker on the mysql or kafka nodes. The script will now exit."
 

@@ -29,11 +29,11 @@ function merge_compose_files {
 #    -f $save_contact_to_db_task_compose_file \
 #    -f $contact_request_task_compose_file \
 #    -f $log_sink_service_compose_file \
+#    -f $contacts_db_compose_file \
     docker-compose \
     -f $save_project_to_db_task_compose_file \
     -f $create_project_request_handler_task_compose_file \
     -f $list_projects_service_handler_task_compose_file \
-    -f $contacts_db_compose_file \
     -f $projects_db_compose_file \
     -f $kafka_service_compose_file config \
     > ../services/docker-stack.yml
