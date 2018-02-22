@@ -75,9 +75,9 @@ function create_node {
         ;;
     kafka) instance_type="t2.small"
         ;;
-    contactsdb) instance_type="t2.nano"
+    contactsdb) instance_type="t2.micro"
         ;;
-    projectsdb) instance_type="t2.nano"
+    projectsdb) instance_type="t2.micro"
         ;;
     createprojectservice) instance_type="t2.micro"
         ;;
