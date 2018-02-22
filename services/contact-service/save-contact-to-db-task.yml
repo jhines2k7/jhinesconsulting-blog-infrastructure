@@ -3,7 +3,7 @@ version: '3'
 services:
   contact_form_service__save_contact_to_db_task:
     depends_on:
-      - mysql
+      - contactsdb
     image: jhines2017/save-contact-to-db-worker:1.10.0-SNAPSHOT
     deploy:
       restart_policy:

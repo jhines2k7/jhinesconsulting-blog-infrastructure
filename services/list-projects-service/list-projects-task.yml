@@ -3,7 +3,7 @@ version: '3'
 services:
   list_projects_service__list_projects_task:
     depends_on:
-      - mysql
+      - projectsdb
     image: jhines2017/list-projects-request-handler-worker:1.1.0-SNAPSHOT
     deploy:
       restart_policy:
