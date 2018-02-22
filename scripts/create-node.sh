@@ -28,7 +28,7 @@ function join_swarm {
 }
 
 function copy_sql_schema {
-    echo "======> copying sql schema files to mysql node ..."
+    echo "======> copying sql schema file to mysql node ..."
 
     local mysql_machine=$(docker-machine ls --format "{{.Name}}" | grep 'mysql-jhc')
     local sql_directory=/home/ubuntu/schemas
@@ -40,8 +40,7 @@ function copy_sql_schema {
         exit 1
     fi
 
-    docker-machine scp ../docker/db/jhinesconsulting-blog-contacts.sql $mysql_machine:$sql_directory
-    docker-machine scp ../docker/db/jhinesconsulting-blog-projects.sql $mysql_machine:$sql_directory
+    docker-machine scp ../docker/db/jhinesconsulting.sql $mysql_machine:$sql_directory
 }
 
 function create_node {
