@@ -17,7 +17,7 @@ services:
       - /home/ubuntu/schemas:/docker-entrypoint-initdb.d
       - db_data:/var/lib/mysql
     ports:
-      - "3306:3306"
+      - "3307:3306"
     environment:
       - MYSQL_ROOT_PASSWORD=${JHC_DB_ROOT_PASS}
       - MYSQL_USER=${JHC_DB_USER}
