@@ -23,7 +23,5 @@ services:
       - PROJECTS_DB_PORT
       - JHC_DB_USER
       - JHC_DB_PASS
-      - ZOOKEEPER_HOST
-      - KAFKA_HOST
     ports:
       - ${LIST_PROJECTS_WORKER_PORT}:${LIST_PROJECTS_WORKER_PORT}
