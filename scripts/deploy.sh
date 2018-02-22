@@ -3,7 +3,7 @@
 function merge_compose_files {
     local blog_ui_compose_file="../services/blog/blog-ui.yml"
     local kafka_service_compose_file="../services/backing-services/kafka-service.yml"
-    local mysql_service_compose_file="../services/backing-services/mysql-contacts.yml"
+    local mysql_service_compose_file="../services/backing-services/contacts-db.yml"
     local log_sink_service_compose_file="../services/backing-services/log-sink-service/log-sink-service.yml"
     local contact_request_task_compose_file="../services/contact-service/contact-request-handler-task.yml"
     local save_contact_to_db_task_compose_file="../services/contact-service/save-contact-to-db-task.yml"

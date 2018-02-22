@@ -112,10 +112,10 @@ function create_contact_form_service_node {
     echo "======> finished creating contact form submission service node"
 }
 
-function create_mysql_contacts_node {
+function create_contacts_db_node {
     echo "======> creating mysql contacts worker node"
 
-    bash ./create-node.sh mysql-contacts 1
+    bash ./create-node.sh contactsdb 1
 
     result=$?
 
@@ -125,10 +125,10 @@ function create_mysql_contacts_node {
     fi
 }
 
-function create_mysql_projects_node {
+function create_projects_db_node {
     echo "======> creating mysql projects worker node"
 
-    bash ./create-node.sh mysql-projects 1
+    bash ./create-node.sh projectsdb 1
 
     result=$?
 
@@ -161,8 +161,8 @@ init_swarm_manager
 
 echo "======> creating kafka and mysql nodes ..."
 create_kafka_node &
-create_mysql_contacts_node &
-create_mysql_projects_node &
+create_contacts_db_node &
+create_projects_db_node &
 
 wait %1
 create_kafka_result=$?
