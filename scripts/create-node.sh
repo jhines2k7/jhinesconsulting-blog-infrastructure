@@ -68,6 +68,8 @@ function create_node {
         ;;
     mysql-jhc) instance_type="t2.micro"
         ;;
+    createprojectservice) instance_type="t2.micro"
+        ;;
     esac
 
     if [ "$ENV" = "dev" ] ||  [ "$ENV" = "test" ]
