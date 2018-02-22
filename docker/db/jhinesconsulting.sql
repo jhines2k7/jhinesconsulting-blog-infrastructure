@@ -15,7 +15,7 @@ CREATE TABLE contact (
 )
   ENGINE = InnoDB;
 
-GRANT SELECT, INSERT, DELETE, UPDATE ON jhinesconsulting_contacts.contact TO ${JHC_DB_USER}@'%' IDENTIFIED BY ${JHC_DB_PASS};
+# GRANT SELECT, INSERT, DELETE, UPDATE ON jhinesconsulting_contacts.contact TO ${JHC_DB_USER}@'%' IDENTIFIED BY ${JHC_DB_PASS};
 
 CREATE DATABASE IF NOT EXISTS jhinesconsulting_projects;
 
@@ -35,4 +35,4 @@ CREATE TABLE project (
 )
   ENGINE = InnoDB;
 
-GRANT SELECT, INSERT, DELETE, UPDATE ON jhinesconsulting_projects.project TO ${JHC_DB_USER}@'%' IDENTIFIED BY ${JHC_DB_PASS};
+# GRANT SELECT, INSERT, DELETE, UPDATE ON jhinesconsulting_projects.project TO ${JHC_DB_USER}@'%' IDENTIFIED BY ${JHC_DB_PASS};
