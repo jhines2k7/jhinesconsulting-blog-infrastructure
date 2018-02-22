@@ -30,15 +30,15 @@ function join_swarm {
 function copy_sql_schema {
     echo "======> copying sql schema file to mysql node ..."
 
-    local mysql_machine=$(docker-machine ls --format "{{.Name}}" | grep 'mysql-contacts')
+    local db_machine=$(docker-machine ls --format "{{.Name}}" | grep 'contactsdb')
 
     echo "DB name: $1"
 
     if [ "$1" = "projects" ] ; then
-        mysql_machine=$(docker-machine ls --format "{{.Name}}" | grep 'mysql-projects')
+        db_machine=$(docker-machine ls --format "{{.Name}}" | grep 'projectsdb')
     fi
 
-    docker-machine ssh $mysql_machine mkdir /home/ubuntu/schemas
+    docker-machine ssh $db_machine mkdir /home/ubuntu/schemas
 
     if [ $? -ne 0 ]
     then
@@ -46,9 +46,9 @@ function copy_sql_schema {
     fi
 
     if [ "$1" = "projects" ] ; then
-        docker-machine scp ../docker/db/projects.sql $mysql_machine:/home/ubuntu/schemas
+        docker-machine scp ../docker/db/projects.sql $db_machine:/home/ubuntu/schemas
     else
-        docker-machine scp ../docker/db/contacts.sql $mysql_machine:/home/ubuntu/schemas
+        docker-machine scp ../docker/db/contacts.sql $db_machine:/home/ubuntu/schemas
     fi
 }
 
@@ -75,9 +75,9 @@ function create_node {
         ;;
     kafka) instance_type="t2.small"
         ;;
-    mysql-contacts) instance_type="t2.nano"
+    contactsdb) instance_type="t2.nano"
         ;;
-    mysql-projects) instance_type="t2.nano"
+    projectsdb) instance_type="t2.nano"
         ;;
     createprojectservice) instance_type="t2.micro"
         ;;
@@ -112,7 +112,7 @@ function create_node {
 
     if [ $? -ne 0 ]
     then
-        if [ $node_type = "manager" ] || [ $node_type = "mysql-contacts" ] || [ $node_type = "mysql-projects" ] || [ $node_type = "kafka" ]
+        if [ $node_type = "manager" ] || [ $node_type = "contactsdb" ] || [ $node_type = "projectsdb" ] || [ $node_type = "kafka" ]
         then
             exit 2
         else
@@ -122,7 +122,7 @@ function create_node {
         return 1
     fi
 
-    if [ "$node_type" = "mysql-contacts" ]
+    if [ "$node_type" = "contactsdb" ]
     then
         copy_sql_schema contacts
 
@@ -132,7 +132,7 @@ function create_node {
         fi
     fi
 
-    if [ "$node_type" = "mysql-projects" ]
+    if [ "$node_type" = "projectsdb" ]
     then
         copy_sql_schema projects
 
