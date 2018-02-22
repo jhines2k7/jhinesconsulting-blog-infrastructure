@@ -112,10 +112,23 @@ function create_contact_form_service_node {
     echo "======> finished creating contact form submission service node"
 }
 
-function create_mysql_node {
-    echo "======> creating mysql worker node"
+function create_mysql_contacts_node {
+    echo "======> creating mysql contacts worker node"
 
-    bash ./create-node.sh mysql-jhc 1
+    bash ./create-node.sh mysql-contacts 1
+
+    result=$?
+
+    if [ $result -ne 0 ]
+    then
+        exit 1
+    fi
+}
+
+function create_mysql_projects_node {
+    echo "======> creating mysql projects worker node"
+
+    bash ./create-node.sh mysql-projects 1
 
     result=$?
 
@@ -148,17 +161,21 @@ init_swarm_manager
 
 echo "======> creating kafka and mysql nodes ..."
 create_kafka_node &
-create_mysql_node &
+create_mysql_contacts_node &
+create_mysql_projects_node &
 
 wait %1
 create_kafka_result=$?
 
 wait %2
-create_mysql_result=$?
+create_mysql_contacts_result=$?
 
-if [ $create_kafka_result -ne 0 ] || [ $create_mysql_result -ne 0 ]
+wait %3
+create_mysql_projects_result=$?
+
+if [ $create_kafka_result -ne 0 ] || [ $create_mysql_contacts_result -ne 0 ] || [ $create_mysql_projects_result -ne 0 ]
 then
-    echo "There was an error installing docker on the mysql or kafka node. The script will now exit."
+    echo "There was an error installing docker on the mysql or kafka nodes. The script will now exit."
 
     echo "=====> Cleaning up..."
 

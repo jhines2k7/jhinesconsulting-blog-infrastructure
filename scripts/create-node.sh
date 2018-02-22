@@ -30,7 +30,9 @@ function join_swarm {
 function copy_sql_schema {
     echo "======> copying sql schema file to mysql node ..."
 
-    local mysql_machine=$(docker-machine ls --format "{{.Name}}" | grep 'mysql-jhc')
+    local db=$1
+
+    local mysql_machine=$(docker-machine ls --format "{{.Name}}" | grep 'mysql-$db')
     local sql_directory=/home/ubuntu/schemas
 
     docker-machine ssh $mysql_machine mkdir $sql_directory
@@ -40,7 +42,7 @@ function copy_sql_schema {
         exit 1
     fi
 
-    docker-machine scp ../docker/db/jhinesconsulting.sql $mysql_machine:$sql_directory
+    docker-machine scp ../docker/db/$db.sql $mysql_machine:$sql_directory
 }
 
 function create_node {
@@ -66,7 +68,9 @@ function create_node {
         ;;
     kafka) instance_type="t2.small"
         ;;
-    mysql-jhc) instance_type="t2.micro"
+    mysql-contacts) instance_type="t2.nano"
+        ;;
+    mysql-projects) instance_type="t2.nano"
         ;;
     createprojectservice) instance_type="t2.micro"
         ;;
@@ -111,9 +115,19 @@ function create_node {
         return 1
     fi
 
-    if [ "$node_type" = "mysql-jhc" ]
+    if [ "$node_type" = "mysql-contacts" ]
     then
-        copy_sql_schema
+        copy_sql_schema contacts
+
+        if [ $? -ne 0 ]
+        then
+            exit 2
+        fi
+    fi
+
+    if [ "$node_type" = "mysql-projects" ]
+    then
+        copy_sql_schema projects
 
         if [ $? -ne 0 ]
         then
