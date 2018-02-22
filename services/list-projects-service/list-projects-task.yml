@@ -19,7 +19,7 @@ services:
         constraints:
           - engine.labels.node.type==listprojectsservice
     environment:
-      - DB_HOST
+      - PROJECTS_DB_HOST
       - JHC_DB_USER
       - JHC_DB_PASS
       - ZOOKEEPER_HOST

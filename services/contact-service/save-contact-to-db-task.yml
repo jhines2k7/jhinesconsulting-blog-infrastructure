@@ -19,7 +19,7 @@ services:
         constraints:
           - engine.labels.node.type==contactformservice
     environment:
-      - DB_HOST
+      - CONTACTS_DB_HOST
       - JHC_DB_USER
       - JHC_DB_PASS
       - ZOOKEEPER_HOST
