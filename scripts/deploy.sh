@@ -3,7 +3,8 @@
 function merge_compose_files {
     local blog_ui_compose_file="../services/blog/blog-ui.yml"
     local kafka_service_compose_file="../services/backing-services/kafka-service.yml"
-    local mysql_service_compose_file="../services/backing-services/contacts-db.yml"
+    local contacts_db_compose_file="../services/backing-services/contacts-db.yml"
+    local projects_db_compose_file="../services/backing-services/projects-db.yml"
     local log_sink_service_compose_file="../services/backing-services/log-sink-service/log-sink-service.yml"
     local contact_request_task_compose_file="../services/contact-service/contact-request-handler-task.yml"
     local save_contact_to_db_task_compose_file="../services/contact-service/save-contact-to-db-task.yml"
@@ -31,7 +32,8 @@ function merge_compose_files {
     -f $save_project_to_db_task_compose_file \
     -f $create_project_request_handler_task_compose_file \
     -f $list_projects_service_handler_task_compose_file \
-    -f $mysql_service_compose_file \
+    -f $contacts_db_compose_file \
+    -f $projects_db_compose_file \
     -f $kafka_service_compose_file config \
     > ../services/docker-stack.yml
 
