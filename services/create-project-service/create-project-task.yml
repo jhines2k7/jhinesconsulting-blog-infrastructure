@@ -1,7 +1,7 @@
 version: '3'
 
 services:
-  create_project_service__create_project_handler_task:
+  create_project_service__create_project_task:
     depends_on:
       - kafka
     image: jhines2017/create-project-request-handler-worker:1.0.0-SNAPSHOT
