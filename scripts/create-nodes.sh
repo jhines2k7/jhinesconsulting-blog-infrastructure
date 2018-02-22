@@ -31,12 +31,14 @@ function create_manager_node {
 function set_manager_node_env_variables {
     local kafka_host="kafka"
     local zookeeper_host="zookeeper"
-    local mysql_host="mysql"
+    local contacts_db_host="contactsdb"
+    local projects_db_host="projectssdb"
 
     if [ "$ENV" = "dev" ]
     then
         kafka_machine_ip=$(get_ip $(docker-machine ls --format "{{.Name}}" | grep 'kafka'))
-        mysql_host=$(get_ip $(docker-machine ls --format "{{.Name}}" | grep 'mysql-jhc'))
+        contacts_db_host=$(get_ip $(docker-machine ls --format "{{.Name}}" | grep 'contactsdb'))
+        projects_db_host=$(get_ip $(docker-machine ls --format "{{.Name}}" | grep 'projectsdb'))
 
         kafka_host=$kafka_machine_ip
         zookeeper_host=$kafka_machine_ip
@@ -44,7 +46,8 @@ function set_manager_node_env_variables {
 
     export KAFKA_HOST=$kafka_machine_ip
     export ZOOKEEPER_HOST=$kafka_machine_ip
-    export DB_HOST=$mysql_host
+    export CONTACTS_DB_HOST=$contacts_db_host
+    export PROJECTS_DB_HOST=$projects_db_host
 
     ./runremote.sh \
     ./set-manager-env-variables.sh \
@@ -57,9 +60,10 @@ function set_manager_node_env_variables {
     "$LOGGING_INPUT_CHANNEL" \
     "$kafka_host" \
     "$zookeeper_host" \
-    "$mysql_host" \
+    "$contacts_db_host" \
     "$JHC_GMAIL_PASSWORD" \
-    "$JHC_GMAIL_ADDRESS"
+    "$JHC_GMAIL_ADDRESS" \
+    "$projects_db_host"
 }
 
 function init_swarm_manager {
