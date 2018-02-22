@@ -17,4 +17,4 @@ services:
         delay: 10s
       placement:
         constraints:
-          - engine.labels.node.type==contactformservice
+          - engine.labels.node.type==createprojectservice
