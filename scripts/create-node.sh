@@ -30,9 +30,12 @@ function join_swarm {
 function copy_sql_schema {
     echo "======> copying sql schema file to mysql node ..."
 
-    local db=$1
+    local mysql_machine=$(docker-machine ls --format "{{.Name}}" | grep 'mysql-contacts')
 
-    local mysql_machine=$(docker-machine ls --format "{{.Name}}" | grep 'mysql-$db')
+    if [ "$1" = "projects" ] ; then
+        mysql_machine=$(docker-machine ls --format "{{.Name}}" | grep 'mysql-projects')
+    fi
+
     local sql_directory=/home/ubuntu/schemas
 
     docker-machine ssh $mysql_machine mkdir $sql_directory
@@ -105,7 +108,7 @@ function create_node {
 
     if [ $? -ne 0 ]
     then
-        if [ $node_type = "manager" ] || [ $node_type = "mysql" ] || [ $node_type = "kafka" ]
+        if [ $node_type = "manager" ] || [ $node_type = "mysql-contacts" ] || [ $node_type = "mysql-projects" ] || [ $node_type = "kafka" ]
         then
             exit 2
         else
