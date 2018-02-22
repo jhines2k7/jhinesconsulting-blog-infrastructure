@@ -52,7 +52,8 @@ function create_node {
     local security_group="jhines-consulting-blog"
     local machine_id=$node_type-$ID
     local subnet_id="subnet-3f2d8f57"
-    local ami="ami-6a5f6a0f"
+#    local ami="ami-6a5f6a0f"
+    local ami="ami-4f80b52a"
     local aws_region="us-east-2"
     
     echo "======> creating $machine_id"
