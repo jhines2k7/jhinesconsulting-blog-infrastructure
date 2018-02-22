@@ -1,7 +1,7 @@
 version: '3'
 
 services:
-  list_projects_service__list_projects_request_handler_task:
+  list_projects_service__list_projects_task:
     depends_on:
       - mysql
     image: jhines2017/list-projects-request-handler-worker:1.0.0-SNAPSHOT
