@@ -36,16 +36,18 @@ function copy_sql_schema {
         mysql_machine=$(docker-machine ls --format "{{.Name}}" | grep 'mysql-projects')
     fi
 
-    local sql_directory=/home/ubuntu/schemas
-
-    docker-machine ssh $mysql_machine mkdir $sql_directory
+    docker-machine ssh $mysql_machine mkdir /home/ubuntu/schemas
 
     if [ $? -ne 0 ]
     then
         exit 1
     fi
 
-    docker-machine scp ../docker/db/$db.sql $mysql_machine:$sql_directory
+    if [ "$1" = "projects" ] ; then
+        docker-machine scp ../docker/db/projects.sql $mysql_machine:/home/ubuntu/schemas
+    else
+        docker-machine scp ../docker/db/contacts.sql $mysql_machine:/home/ubuntu/schemas
+    fi
 }
 
 function create_node {
