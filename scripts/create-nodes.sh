@@ -63,7 +63,11 @@ function set_manager_node_env_variables {
     "$contacts_db_host" \
     "$JHC_GMAIL_PASSWORD" \
     "$JHC_GMAIL_ADDRESS" \
-    "$projects_db_host"
+    "$projects_db_host" \
+    "$PROJECTS_DB_PORT" \
+    "$PROJECTS_DB_NAME" \
+    "$CONTACTS_DB_PORT" \
+    "$CONTACTS_DB_NAME"
 }
 
 function init_swarm_manager {

@@ -15,4 +15,8 @@ echo "=======> setting env variables for manager node"
     echo "JHC_GMAIL_PASSWORD=${10}"
     echo "JHC_GMAIL_ADDRESS=${11}"
     echo "PROJECTS_DB_HOST=${12}"
+    echo "PROJECTS_DB_PORT=${13}"
+    echo "PROJECTS_DB_NAME=${14}"
+    echo "CONTACTS_DB_PORT=${15}"
+    echo "CONTACTS_DB_NAME=${16}"
 } | sudo tee -a /etc/environment > /dev/null
