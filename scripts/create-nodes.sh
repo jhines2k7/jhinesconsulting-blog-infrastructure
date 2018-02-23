@@ -32,12 +32,12 @@ function set_manager_node_env_variables {
     local kafka_host="kafka"
     local zookeeper_host="zookeeper"
     local contacts_db_host="contactsdb"
-    local projects_db_host="projectssdb"
+    local projects_db_host="projectsdb"
 
     if [ "$ENV" = "dev" ]
     then
         kafka_machine_ip=$(get_ip $(docker-machine ls --format "{{.Name}}" | grep 'kafka'))
-        contacts_db_host=$(get_ip $(docker-machine ls --format "{{.Name}}" | grep 'contactsdb'))
+#        contacts_db_host=$(get_ip $(docker-machine ls --format "{{.Name}}" | grep 'contactsdb'))
         projects_db_host=$(get_ip $(docker-machine ls --format "{{.Name}}" | grep 'projectsdb'))
 
         kafka_host=$kafka_machine_ip
