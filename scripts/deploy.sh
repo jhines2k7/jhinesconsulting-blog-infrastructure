@@ -56,7 +56,7 @@ function build_and_push_services {
     bash ../services/backing-services/log-sink-service/build-and-push.sh
     bash ../services/create-project-service/save-project-to-db-task/build-and-push.sh &
 #    bash ../services/contact-form-submission-service/http-source-task/build-and-push.sh &
-#    wait
+    wait
 }
 
 build_and_push_services
