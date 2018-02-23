@@ -165,8 +165,8 @@ init_swarm_manager
 
 echo "======> creating kafka and mysql nodes ..."
 create_kafka_node &
-create_contacts_db_node &
 create_projects_db_node &
+#create_contacts_db_node &
 
 wait %1
 create_kafka_result=$?
