@@ -18,3 +18,10 @@ services:
       placement:
         constraints:
           - engine.labels.node.type==createprojectservice
+    environment:
+      - ZOOKEEPER_HOST
+      - KAFKA_HOST
+      - PROJECTS_DB_HOST
+      - PROJECTS_DB_NAME
+      - JHC_DB_USER
+      - JHC_DB_PASS
