@@ -20,3 +20,5 @@ services:
           - engine.labels.node.type==createprojectservice
     environment:
       - LOGGING_INPUT_CHANNEL
+      - KAFKA_HOST
+      - ZOOKEEPER_HOST
