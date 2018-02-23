@@ -4,7 +4,7 @@ services:
   create_project_service__save_project_to_db_task:
     depends_on:
       - projectsdb
-    image: jhines2017/save-project-to-db-worker:1.0.0-SNAPSHOT
+    image: jhines2017/save-project-to-db-worker:1.0.1-SNAPSHOT
     deploy:
       restart_policy:
         condition: on-failure
