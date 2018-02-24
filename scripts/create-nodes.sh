@@ -161,21 +161,21 @@ init_swarm_manager
 
 echo "======> creating kafka and mysql nodes ..."
 create_kafka_node &
-create_contacts_db_node &
-#create_projects_db_node &
+#create_contacts_db_node &
+create_projects_db_node &
 
 wait %1
 create_kafka_result=$?
 
 wait %2
-create_contacts_db_result=$?
-#create_projects_db_result=$?
+#create_contacts_db_result=$?
+create_projects_db_result=$?
 
 #wait %3
 #create_projects_db_node=$?
 
 #if [ $create_kafka_result -ne 0 ] || [ $create_contacts_db_result -ne 0 ] || [ $create_projects_db_result -ne 0 ]
-if [ $create_kafka_result -ne 0 ] || [ $create_contacts_db_result -ne 0 ]
+if [ $create_kafka_result -ne 0 ] || [ $create_projects_db_result -ne 0 ]
 then
     echo "There was an error installing docker on the mysql or kafka nodes. The script will now exit."
 
@@ -187,11 +187,11 @@ then
 fi
 echo "======> finished creating kafka and mysql nodes ..."
 
-create_contact_form_service_node 1 &
+#create_contact_form_service_node 1 &
 #create_blog_ui_node 1 &
 
-#bash ./create-node.sh createprojectservice 1 &
-#bash ./create-node.sh listprojectsservice 1 &
+bash ./create-node.sh createprojectservice 1 &
+bash ./create-node.sh listprojectsservice 1 &
 
 wait
 

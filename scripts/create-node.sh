@@ -75,6 +75,8 @@ function create_node {
         ;;
     ui) instance_type="t2.nano"
         ;;
+    listprojectsservice) instance_type="t2.nano"
+        ;;
     esac
 
     if [ "$ENV" = "dev" ] ||  [ "$ENV" = "test" ]
