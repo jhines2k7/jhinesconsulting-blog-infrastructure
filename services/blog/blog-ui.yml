@@ -3,7 +3,7 @@ version: '3'
 services:
   ui:
     depends_on:
-      - contact_form_service__handle_contact_request_task
+      - contact_form_service__contact_form_handler_task
     image: jhines2017/jhines-consulting-blog-ui:0.30.5
     ports:
       - "80:80"
