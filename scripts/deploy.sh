@@ -8,7 +8,7 @@ function merge_compose_files {
     local backing_services__projects_db_compose_file="../services/backing-services/projects-db.yml"
     local backing_services__log_sink_service_compose_file="../services/backing-services/log-sink-service/log-sink-service.yml"
 
-    local contact_form_service__contact_form_handler_task_compose_file="../services/contact-form-service/contact-form-handler-task.yml"
+    local contact_form_service__contact_form_task_compose_file="../services/contact-form-service/contact-form-task.yml"
     local contact_form_service__save_contact_to_db_task_compose_file="../services/contact-form-service/save-contact-to-db-task.yml"
     local contact_form_service__email_notification_task_compose_file="../services/contact-form-service/email-notification-task.yml"
 
@@ -31,7 +31,7 @@ function merge_compose_files {
 #    -f $blog_ui_compose_file \
     docker-compose \
     -f $contact_form_service__save_contact_to_db_task_compose_file \
-    -f $contact_form_service__contact_form_handler_task_compose_file \
+    -f $contact_form_service__contact_form_task_compose_file \
     -f $contact_form_service__email_notification_task_compose_file \
     -f $create_project_service__save_project_to_db_task_compose_file \
     -f $create_project_service__create_project_task_compose_file \
