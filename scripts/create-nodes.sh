@@ -113,11 +113,17 @@ function create_kafka_node {
 function create_contact_form_service_node {
     local num_nodes=$1
 
-    echo "======> creating contact form submission service node"
+    echo "======> creating contact form service node"
 
     bash ./create-node.sh contactformservice $num_nodes
 
-    echo "======> finished creating contact form submission service node"
+    if [ "$BUILD_UI" = true ] ; then
+        source set-contact-form-service-ip.sh
+
+        source /home/james/projects/jhines-consulting-blog/shell_scripts/build.sh
+    fi
+
+    echo "======> finished creating contact form service node"
 }
 
 function create_contacts_db_node {
@@ -154,7 +160,7 @@ function create_contact_request_handler_node {
     result=$?
 
     if [ "$BUILD_UI" = true ] ; then
-        source set-contact-request-handler-ip.sh
+        source set-contact-form-service-ip.sh
 
         source /home/james/projects/jhines-consulting-blog/shell_scripts/build.sh
     fi
@@ -195,7 +201,7 @@ fi
 echo "======> finished creating kafka and mysql nodes ..."
 
 create_contact_form_service_node 1 &
-create_contact_request_handler_node &
+#create_contact_request_handler_node &
 #create_blog_ui_node 1 &
 
 #bash ./create-node.sh createprojectservice 1 &

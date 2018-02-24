@@ -1,7 +1,7 @@
 version: '3'
 
 services:
-  contact_form_service__handle_contact_request_task:
+  contact_form_service__contact_form_handler_task:
     depends_on:
       - kafka
     image: jhines2017/contact-request-handler-worker:1.8.0-SNAPSHOT
@@ -17,7 +17,7 @@ services:
         delay: 10s
       placement:
         constraints:
-          - engine.labels.node.type==contactrequesthandler
+          - engine.labels.node.type==contactformservice
     environment:
       - ZOOKEEPER_HOST
       - KAFKA_HOST
