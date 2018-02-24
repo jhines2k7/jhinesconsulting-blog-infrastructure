@@ -117,12 +117,6 @@ function create_contact_form_service_node {
 
     bash ./create-node.sh contactformservice $num_nodes
 
-    if [ "$BUILD_UI" = true ] ; then
-        source set-contact-form-service-ip.sh
-
-        source /home/james/projects/jhinesconsulting/jhinesconsulting-blog-ui/shell_scripts/build.sh
-    fi
-
     echo "======> finished creating contact form service node"
 }
 
@@ -192,6 +186,14 @@ bash ./create-node.sh createprojectservice 1 &
 bash ./create-node.sh listprojectsservice 1 &
 
 wait
+
+if [ "$BUILD_UI" = true ] ; then
+    source set-contact-form-service-ip.sh
+
+    source set-list-projects-service-ip.sh
+
+    source /home/james/projects/jhinesconsulting/jhinesconsulting-blog-ui/shell_scripts/build.sh
+fi
 
 bash ./remove-nodes-with-failed-docker-installations.sh
 
