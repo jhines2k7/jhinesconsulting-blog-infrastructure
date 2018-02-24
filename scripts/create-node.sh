@@ -55,13 +55,13 @@ function copy_sql_schema {
 function create_node {
     local node_type=$1
     local ID=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 12 | head -n 1)
-    local instance_type="t2.nano"
+    local instance_type="t2.micro"
     local vpc_id="vpc-3670d45e"
     local security_group="jhines-consulting-blog"
     local machine_id=$node_type-$ID
     local subnet_id="subnet-3f2d8f57"
-#    local ami="ami-6a5f6a0f"
-    local ami="ami-4f80b52a"
+    local ami="ami-6a5f6a0f"
+#    local ami="ami-4f80b52a"
     local aws_region="us-east-2"
     
     echo "======> creating $machine_id"
@@ -71,15 +71,9 @@ function create_node {
     # t2.small=2
 
     case "$node_type" in
-    contactformservice) instance_type="t2.micro"
-        ;;
     kafka) instance_type="t2.small"
         ;;
-    contactsdb) instance_type="t2.micro"
-        ;;
-    projectsdb) instance_type="t2.micro"
-        ;;
-    createprojectservice) instance_type="t2.micro"
+    ui) instance_type="t2.nano"
         ;;
     esac
 

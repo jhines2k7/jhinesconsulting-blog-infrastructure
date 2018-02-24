@@ -94,7 +94,7 @@ function create_blog_ui_node {
 
     echo "======> creating blog worker node"
 
-    bash ./create-node.sh blog-ui $num_nodes
+    bash ./create-node.sh ui $num_nodes
 
     echo "======> finished creating blog node..."
 }
@@ -175,17 +175,18 @@ init_swarm_manager
 
 echo "======> creating kafka and mysql nodes ..."
 create_kafka_node &
-create_projects_db_node &
-#create_contacts_db_node &
+create_contacts_db_node &
+#create_projects_db_node &
 
 wait %1
 create_kafka_result=$?
 
-#wait %2
+wait %2
+create_contacts_db_result=$?
 #create_projects_db_result=$?
 
-wait %3
-create_contacts_db_result=$?
+#wait %3
+#create_projects_db_node=$?
 
 #if [ $create_kafka_result -ne 0 ] || [ $create_contacts_db_result -ne 0 ] || [ $create_projects_db_result -ne 0 ]
 if [ $create_kafka_result -ne 0 ] || [ $create_contacts_db_result -ne 0 ]
@@ -201,7 +202,6 @@ fi
 echo "======> finished creating kafka and mysql nodes ..."
 
 create_contact_form_service_node 1 &
-#create_contact_request_handler_node &
 #create_blog_ui_node 1 &
 
 #bash ./create-node.sh createprojectservice 1 &
