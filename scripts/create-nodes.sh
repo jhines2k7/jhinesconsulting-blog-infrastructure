@@ -37,7 +37,7 @@ function set_manager_node_env_variables {
     if [ "$ENV" = "dev" ]
     then
         kafka_machine_ip=$(get_ip $(docker-machine ls --format "{{.Name}}" | grep 'kafka'))
-#        contacts_db_host=$(get_ip $(docker-machine ls --format "{{.Name}}" | grep 'contactsdb'))
+        contacts_db_host=$(get_ip $(docker-machine ls --format "{{.Name}}" | grep 'contactsdb'))
         projects_db_host=$(get_ip $(docker-machine ls --format "{{.Name}}" | grep 'projectsdb'))
 
         kafka_host=$kafka_machine_ip
@@ -178,11 +178,10 @@ create_kafka_result=$?
 wait %2
 create_projects_db_result=$?
 
-#wait %3
-#create_contacts_db_result=$?
+wait %3
+create_contacts_db_result=$?
 
-if [ $create_kafka_result -ne 0 ] || [ $create_projects_db_result -ne 0 ]
-#if [ $create_kafka_result -ne 0 ] || [ $create_contacts_db_result -ne 0 ] || [ $create_projects_db_result -ne 0 ]
+if [ $create_kafka_result -ne 0 ] || [ $create_contacts_db_result -ne 0 ] || [ $create_projects_db_result -ne 0 ]
 then
     echo "There was an error installing docker on the mysql or kafka nodes. The script will now exit."
 
@@ -194,8 +193,8 @@ then
 fi
 echo "======> finished creating kafka and mysql nodes ..."
 
-#create_contact_form_service_node 1 &
-#create_contact_request_handler_node &
+create_contact_form_service_node 1 &
+create_contact_request_handler_node &
 #create_blog_ui_node 1 &
 
 bash ./create-node.sh createprojectservice 1 &
