@@ -4,7 +4,7 @@ services:
   contact_form_service__save_contact_to_db_task:
     depends_on:
       - contactsdb
-    image: jhines2017/save-contact-to-db-worker:1.11.0-SNAPSHOT
+    image: jhines2017/save-contact-to-db-worker:1.11.0.RELEASE
     deploy:
       restart_policy:
         condition: on-failure

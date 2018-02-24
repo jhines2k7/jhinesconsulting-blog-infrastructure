@@ -4,7 +4,7 @@ services:
   contact_form_service__email_notification_task:
     depends_on:
       - kafka
-    image: jhines2017/send-email-notification-worker:1.2.2-SNAPSHOT
+    image: jhines2017/send-email-notification-worker:1.2.2.RELEASE
     deploy:
       restart_policy:
         condition: on-failure
