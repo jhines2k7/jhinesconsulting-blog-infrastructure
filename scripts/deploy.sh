@@ -24,17 +24,17 @@ function merge_compose_files {
 
     echo "======> running docker compose config to create a merged compose file"
 
-#    -f $email_notification_task_compose_file \
+#    -f $save_project_to_db_task_compose_file \
+#    -f $create_project_request_handler_task_compose_file \
+#    -f $list_projects_service_handler_task_compose_file \
+#    -f $projects_db_compose_file \
 #    -f $blog_ui_compose_file \
-#    -f $save_contact_to_db_task_compose_file \
-#    -f $contact_request_task_compose_file \
-#    -f $contacts_db_compose_file \
     docker-compose \
+    -f $save_contact_to_db_task_compose_file \
+    -f $contact_request_task_compose_file \
+    -f $contacts_db_compose_file \
+    -f $email_notification_task_compose_file \
     -f $log_sink_service_compose_file \
-    -f $save_project_to_db_task_compose_file \
-    -f $create_project_request_handler_task_compose_file \
-    -f $list_projects_service_handler_task_compose_file \
-    -f $projects_db_compose_file \
     -f $kafka_service_compose_file config \
     > ../services/docker-stack.yml
 
