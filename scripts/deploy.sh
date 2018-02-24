@@ -18,7 +18,7 @@ function merge_compose_files {
     local list_projects_service__list_projects_task_compose_file="../services/list-projects-service/list-projects-task.yml"
 
     if [ "$ENV" = "dev" ] ; then
-        kafka_service_compose_file="../services/backing-services/kafka-service.dev.yml"
+        backing_services__kafka_service_compose_file="../services/backing-services/kafka-service.dev.yml"
     fi
 
     echo "======> KAFKA_HOST: $KAFKA_HOST"
