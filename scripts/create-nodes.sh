@@ -120,7 +120,7 @@ function create_contact_form_service_node {
     if [ "$BUILD_UI" = true ] ; then
         source set-contact-form-service-ip.sh
 
-        source /home/james/projects/jhines-consulting-blog/shell_scripts/build.sh
+        source /home/james/projects/jhinesconsulting/jhinesconsulting-blog-ui/shell_scripts/build.sh
     fi
 
     echo "======> finished creating contact form service node"
@@ -149,20 +149,6 @@ function create_projects_db_node {
     if [ $result -ne 0 ]
     then
         exit 1
-    fi
-}
-
-function create_contact_request_handler_node {
-    echo "======> creating contact request handler node"
-
-    bash ./create-node.sh contactrequesthandler 1
-
-    result=$?
-
-    if [ "$BUILD_UI" = true ] ; then
-        source set-contact-form-service-ip.sh
-
-        source /home/james/projects/jhines-consulting-blog/shell_scripts/build.sh
     fi
 }
 
@@ -213,6 +199,6 @@ bash ./remove-nodes-with-failed-docker-installations.sh
 
 set_manager_node_env_variables
 
-cd /home/james/projects/jhines-consulting-blog-docker/scripts
+cd /home/james/projects/jhinesconsulting/jhinesconsulting-blog-infrasctructure/scripts
 
 docker-machine ls
