@@ -4,7 +4,7 @@ services:
   contact_form_service__save_contact_to_db_task:
     depends_on:
       - contactsdb
-    image: jhines2017/save-contact-to-db-worker:1.10.0-SNAPSHOT
+    image: jhines2017/save-contact-to-db-worker:1.11.0-SNAPSHOT
     deploy:
       restart_policy:
         condition: on-failure
@@ -20,6 +20,7 @@ services:
           - engine.labels.node.type==contactformservice
     environment:
       - CONTACTS_DB_HOST
+      - CONTACTS_DB_NAME
       - JHC_DB_USER
       - JHC_DB_PASS
       - ZOOKEEPER_HOST
