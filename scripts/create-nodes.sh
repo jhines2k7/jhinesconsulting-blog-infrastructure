@@ -37,7 +37,7 @@ function set_manager_node_env_variables {
     if [ "$ENV" = "dev" ]
     then
         kafka_machine_ip=$(get_ip $(docker-machine ls --format "{{.Name}}" | grep 'kafka'))
-        contacts_db_host=$(get_ip $(docker-machine ls --format "{{.Name}}" | grep 'contactsdb'))
+#        contacts_db_host=$(get_ip $(docker-machine ls --format "{{.Name}}" | grep 'contactsdb'))
 #        projects_db_host=$(get_ip $(docker-machine ls --format "{{.Name}}" | grep 'projectsdb'))
 
         kafka_host=$kafka_machine_ip
@@ -200,6 +200,6 @@ bash ./remove-nodes-with-failed-docker-installations.sh
 
 set_manager_node_env_variables
 
-cd /home/james/projects/jhinesconsulting/jhinesconsulting-blog-infrasctructure/scripts
+cd /home/james/projects/jhinesconsulting/jhinesconsulting-blog-infrastructure/scripts
 
 docker-machine ls
