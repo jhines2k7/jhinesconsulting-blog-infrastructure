@@ -196,10 +196,10 @@ if [ "$BUILD_UI" = true ] ; then
     source /home/james/projects/jhinesconsulting/jhinesconsulting-blog-ui/shell_scripts/build.sh
 fi
 
+cd /home/james/projects/jhinesconsulting/jhinesconsulting-blog-infrasctructure/scripts
+
 bash ./remove-nodes-with-failed-docker-installations.sh
 
 set_manager_node_env_variables
-
-cd /home/james/projects/jhinesconsulting/jhinesconsulting-blog-infrasctructure/scripts
 
 docker-machine ls
