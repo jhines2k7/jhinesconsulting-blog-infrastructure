@@ -191,7 +191,7 @@ wait
 if [ "$BUILD_UI" = true ] ; then
     source set-contact-form-service-ip.sh
 
-    source set-list-projects-service-ip.sh
+#    source set-list-projects-service-ip.sh
 
     source /home/james/projects/jhinesconsulting/jhinesconsulting-blog-ui/shell_scripts/build.sh
 fi
