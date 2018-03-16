@@ -194,9 +194,9 @@ if [ "$BUILD_UI" = true ] ; then
 #    source set-list-projects-service-ip.sh
 
     source /home/james/projects/jhinesconsulting/jhinesconsulting-blog-ui/shell_scripts/build.sh
-fi
 
-cd /home/james/projects/jhinesconsulting/jhinesconsulting-blog-infrastructure/scripts
+    cd /home/james/projects/jhinesconsulting/jhinesconsulting-blog-infrastructure/scripts
+fi
 
 bash ./remove-nodes-with-failed-docker-installations.sh
 
