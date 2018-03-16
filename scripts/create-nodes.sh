@@ -181,7 +181,7 @@ fi
 echo "======> finished creating kafka and mysql nodes ..."
 
 create_contact_form_service_node 1 &
-#create_blog_ui_node 1 &
+create_blog_ui_node 1 &
 
 #bash ./create-node.sh createprojectservice 1 &
 #bash ./create-node.sh listprojectsservice 1 &
@@ -193,7 +193,7 @@ if [ "$BUILD_UI" = true ] ; then
 
 #    source set-list-projects-service-ip.sh
 
-    source /home/james/projects/jhinesconsulting/jhinesconsulting-blog-ui/shell_scripts/build.sh
+    bash /home/james/projects/jhinesconsulting/jhinesconsulting-blog-ui/shell_scripts/build.sh
 
     cd /home/james/projects/jhinesconsulting/jhinesconsulting-blog-infrastructure/scripts
 fi
