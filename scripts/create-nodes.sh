@@ -193,7 +193,7 @@ if [ "$BUILD_UI" = true ] ; then
 
 #    source set-list-projects-service-ip.sh
 
-    bash /home/james/projects/jhinesconsulting/jhinesconsulting-blog-ui/shell_scripts/build.sh
+    bash /home/james/projects/jhinesconsulting/jhinesconsulting-blog-ui/scripts/build.sh
 
     cd /home/james/projects/jhinesconsulting/jhinesconsulting-blog-infrastructure/scripts
 fi
