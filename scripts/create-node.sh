@@ -32,24 +32,21 @@ function copy_sql_schema {
 
     local db_machine=$(docker-machine ls --format "{{.Name}}" | grep 'contactsdb')
 
-    echo "DB name: $1"
+    local sql_directory=/schemas
 
-    if [ "$1" = "projects" ] ; then
-        db_machine=$(docker-machine ls --format "{{.Name}}" | grep 'projectsdb')
+    if [ "$PROVIDER" = "aws" ]
+    then
+        sql_directory=/home/ubuntu/schemas
     fi
 
-    docker-machine ssh $db_machine mkdir /home/ubuntu/schemas
+    docker-machine ssh $db_machine mkdir $sql_directory
 
     if [ $? -ne 0 ]
     then
         exit 1
     fi
 
-    if [ "$1" = "projects" ] ; then
-        docker-machine scp ../docker/db/projects.sql $db_machine:/home/ubuntu/schemas
-    else
-        docker-machine scp ../docker/db/contacts.sql $db_machine:/home/ubuntu/schemas
-    fi
+    docker-machine scp ../docker/db/contacts.sql $db_machine:$sql_directory
 }
 
 function create_node {
