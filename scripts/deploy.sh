@@ -50,8 +50,14 @@ function merge_compose_files {
 manager_machine=$(docker-machine ls --format "{{.Name}}" | grep 'manager')
 
 function copy_compose_file {
+    directory=/
+
+    if [ "$PROVIDER" = "aws" ] ; then
+        directory=/home/ubuntu/
+    fi
+
     echo "======> copying compose file to manager node ..."
-    docker-machine scp ../services/docker-stack.yml $manager_machine:/home/ubuntu/
+    docker-machine scp ../services/docker-stack.yml $manager_machine:$directory
 }
 
 function build_and_push_services {
@@ -68,9 +74,15 @@ copy_compose_file
 
 docker-machine ssh $manager_machine sudo docker login --username=$DOCKER_HUB_USER --password=$DOCKER_HUB_PASSWORD
 
+directory=/
+
+if [ "$PROVIDER" = "aws" ] ; then
+    directory=/home/ubuntu/
+fi
+
 docker-machine ssh $manager_machine \
     sudo docker stack deploy \
-    --compose-file /home/ubuntu/docker-stack.yml \
+    --compose-file $directory/docker-stack.yml \
     --with-registry-auth \
     blog
 
