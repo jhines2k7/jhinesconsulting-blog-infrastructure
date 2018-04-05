@@ -76,6 +76,9 @@ function create_node {
     ui) instance_type="t2.nano"
         size="512mb"
         ;;
+    ui-qa) instance_type="t2.nano"
+        size="512mb"
+        ;;
     esac
 
     if [ "$ENV" = "dev" ] ||  [ "$ENV" = "test" ]
