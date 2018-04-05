@@ -63,7 +63,8 @@ function create_node {
     local ami="ami-6a5f6a0f"
 #    local ami="ami-4f80b52a"
     local aws_region="us-east-2"
-    
+    local size="1gb"
+
     echo "======> creating $machine_id"
 
     # t2.nano=0.5
@@ -71,11 +72,12 @@ function create_node {
     # t2.small=2
 
     case "$node_type" in
-    kafka) instance_type="t2.small"
+    kafka)
+        instance_type="t2.small"
+        size="2gb"
         ;;
     ui) instance_type="t2.nano"
-        ;;
-    listprojectsservice) instance_type="t2.nano"
+        size="512mb"
         ;;
     esac
 
@@ -84,20 +86,32 @@ function create_node {
         security_group="jhines-consulting-blog-test"
     fi
 
-    echo "======> launching $instance_type AWS instance..."
+    if [ "$PROVIDER" = "aws" ] ; then
+        echo "======> launching $instance_type AWS instance..."
 
-    docker-machine create \
-    --engine-label "node.type=$node_type" \
-    --driver amazonec2 \
-    --amazonec2-ami $ami \
-    --amazonec2-vpc-id $vpc_id \
-    --amazonec2-subnet-id $subnet_id \
-    --amazonec2-security-group $security_group \
-    --amazonec2-instance-type $instance_type \
-    --amazonec2-region $aws_region \
-    --amazonec2-zone a \
-    $machine_id
-    
+        docker-machine create \
+        --engine-label "node.type=$node_type" \
+        --driver amazonec2 \
+        --amazonec2-ami $ami \
+        --amazonec2-vpc-id $vpc_id \
+        --amazonec2-subnet-id $subnet_id \
+        --amazonec2-security-group $security_group \
+        --amazonec2-instance-type $instance_type \
+        --amazonec2-region $aws_region \
+        --amazonec2-zone a \
+        $machine_id
+    else
+        echo "======> launching $size Digital Ocean instance..."
+
+        docker-machine create \
+        --engine-label "node.type=$node_type" \
+        --driver digitalocean \
+        --digitalocean-image ubuntu-17-10-x64 \
+        --digitalocean-size $size \
+        --digitalocean-access-token $DIGITALOCEAN_ACCESS_TOKEN \
+        $machine_id
+    fi
+
     if [ ! -e "$failed_installs_file" ] ; then
         touch "$failed_installs_file"
     fi
@@ -108,7 +122,7 @@ function create_node {
 
     if [ $? -ne 0 ]
     then
-        if [ $node_type = "manager" ] || [ $node_type = "contactsdb" ] || [ $node_type = "projectsdb" ] || [ $node_type = "kafka" ]
+        if [ $node_type = "manager" ] || [ $node_type = "contactsdb" ] || [ $node_type = "kafka" ]
         then
             exit 2
         else
@@ -121,16 +135,6 @@ function create_node {
     if [ "$node_type" = "contactsdb" ]
     then
         copy_sql_schema contacts
-
-        if [ $? -ne 0 ]
-        then
-            exit 2
-        fi
-    fi
-
-    if [ "$node_type" = "projectsdb" ]
-    then
-        copy_sql_schema projects
 
         if [ $? -ne 0 ]
         then
