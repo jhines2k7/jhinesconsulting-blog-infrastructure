@@ -4,7 +4,12 @@ function merge_compose_files {
     local blog_ui_compose_file="../services/blog/blog-ui.yml"
 
     local backing_services__kafka_service_compose_file="../services/backing-services/kafka-service.yml"
-    local backing_services__contacts_db_compose_file="../services/backing-services/contacts-db.yml"
+    local backing_services__contacts_db_compose_file="../services/backing-services/contacts-db.digitalocean.yml"
+
+    if [ "$PROVIDER" = "aws" ] ; then
+       backing_services__contacts_db_compose_file="../services/backing-services/contacts-db.aws.yml"
+    fi
+
     local backing_services__projects_db_compose_file="../services/backing-services/projects-db.yml"
     local backing_services__log_sink_service_compose_file="../services/backing-services/log-sink-service/log-sink-service.yml"
 
