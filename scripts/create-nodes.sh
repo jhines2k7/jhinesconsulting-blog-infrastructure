@@ -12,7 +12,7 @@ function get_manager_machine_name {
 
 #create manager node
 function create_manager_node {
-    bash ./create-node.sh jhc_manager 1
+    bash ./create-node.sh jhcmanager 1
 
     result=$?
 
@@ -94,13 +94,13 @@ function create_blog_ui_node {
 
     echo "======> creating blog worker node"
 
-    bash ./create-node.sh jhc_ui $num_nodes
+    bash ./create-node.sh jhcui $num_nodes
 
     echo "======> finished creating blog node..."
 }
 
 function create_kafka_node {
-    bash ./create-node.sh jhc_kafka 1
+    bash ./create-node.sh jhckafka 1
 
     result=$?
 
@@ -115,7 +115,7 @@ function create_contact_form_service_node {
 
     echo "======> creating contact form service node"
 
-    bash ./create-node.sh contactformservice $num_nodes
+    bash ./create-node.sh jhccontactformservice $num_nodes
 
     echo "======> finished creating contact form service node"
 }
@@ -123,7 +123,7 @@ function create_contact_form_service_node {
 function create_contacts_db_node {
     echo "======> creating mysql contacts worker node"
 
-    bash ./create-node.sh contactsdb 1
+    bash ./create-node.sh jhccontactsdb 1
 
     result=$?
 
@@ -136,7 +136,7 @@ function create_contacts_db_node {
 function create_projects_db_node {
     echo "======> creating mysql projects worker node"
 
-    bash ./create-node.sh projectsdb 1
+    bash ./create-node.sh jhcprojectsdb 1
 
     result=$?
 
