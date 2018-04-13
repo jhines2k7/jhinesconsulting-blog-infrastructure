@@ -9,7 +9,7 @@ function get_ip {
 }
 
 function get_manager_machine_name {
-    echo $(docker-machine ls --format "{{.Name}}" | grep 'manager')
+    echo $(docker-machine ls --format "{{.Name}}" | grep 'jhcmanager')
 }
 
 function get_worker_token {
@@ -30,7 +30,7 @@ function join_swarm {
 function copy_sql_schema {
     echo "======> copying sql schema file to mysql node ..."
 
-    local db_machine=$(docker-machine ls --format "{{.Name}}" | grep 'contactsdb')
+    local db_machine=$(docker-machine ls --format "{{.Name}}" | grep 'jhccontactsdb')
 
     local sql_directory=/schemas
 
@@ -69,11 +69,11 @@ function create_node {
     # t2.small=2
 
     case "$node_type" in
-    kafka)
+    jhckafka)
         instance_type="t2.small"
         size="2gb"
         ;;
-    ui) instance_type="t2.nano"
+    jhcui) instance_type="t2.nano"
         size="512mb"
         ;;
     ui-qa) instance_type="t2.nano"
@@ -122,7 +122,7 @@ function create_node {
 
     if [ $? -ne 0 ]
     then
-        if [ $node_type = "manager" ] || [ $node_type = "contactsdb" ] || [ $node_type = "kafka" ]
+        if [ $node_type = "jhcmanager" ] || [ $node_type = "jhccontactsdb" ] || [ $node_type = "jhckafka" ]
         then
             exit 2
         else
@@ -132,7 +132,7 @@ function create_node {
         return 1
     fi
 
-    if [ "$node_type" = "contactsdb" ]
+    if [ "$node_type" = "jhccontactsdb" ]
     then
         copy_sql_schema contacts
 
@@ -144,7 +144,7 @@ function create_node {
 
     bash ./set-ufw-rules.sh $machine_id
     
-    if [ "$node_type" != "manager" ]
+    if [ "$node_type" != "jhcmanager" ]
     then
         join_swarm $machine_id
     fi

@@ -2,7 +2,7 @@
 worker_machine=$1
 
 function get_manager_machine_name {
-    echo $(docker-machine ls --format "{{.Name}}" | grep 'manager')
+    echo $(docker-machine ls --format "{{.Name}}" | grep 'jhcmanager')
 }
 
 function get_ip {

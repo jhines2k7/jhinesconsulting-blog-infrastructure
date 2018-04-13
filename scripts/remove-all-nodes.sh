@@ -1,6 +1,6 @@
 #!/bin/bash
 
 #remove all nodes
-for machine in $(docker-machine ls --format "{{.Name}}" | grep 'jhc');
+for machine in $(docker-machine ls --format "{{.Name}}" | grep 'jhcmanager\|jhc512mb\|jhcblog\|jhcmock\|jhccontactsdb\|jhckafka\|jhcprojects\|list\|jhccreate\|jhcui');
     do docker-machine rm -f $machine;
 done

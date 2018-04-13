@@ -7,7 +7,7 @@ function get_ip {
 }
 
 function get_manager_machine_name {
-    echo $(docker-machine ls --format "{{.Name}}" | grep 'manager')
+    echo $(docker-machine ls --format "{{.Name}}" | grep 'jhcmanager')
 }
 
 #create manager node
