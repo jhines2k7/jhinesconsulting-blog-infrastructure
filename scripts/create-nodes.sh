@@ -12,7 +12,7 @@ function get_manager_machine_name {
 
 #create manager node
 function create_manager_node {
-    bash ./create-node.sh manager 1
+    bash ./create-node.sh jhc_manager 1
 
     result=$?
 
@@ -94,13 +94,13 @@ function create_blog_ui_node {
 
     echo "======> creating blog worker node"
 
-    bash ./create-node.sh ui $num_nodes
+    bash ./create-node.sh jhc_ui $num_nodes
 
     echo "======> finished creating blog node..."
 }
 
 function create_kafka_node {
-    bash ./create-node.sh kafka 1
+    bash ./create-node.sh jhc_kafka 1
 
     result=$?
 
