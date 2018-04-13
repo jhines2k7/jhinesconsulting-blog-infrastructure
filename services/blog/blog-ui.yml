@@ -19,4 +19,4 @@ services:
         delay: 10s
       placement:
         constraints:
-          - engine.labels.node.type==ui
+          - engine.labels.node.type==jhcui

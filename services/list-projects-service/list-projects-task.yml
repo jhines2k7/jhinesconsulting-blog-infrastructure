@@ -17,7 +17,7 @@ services:
         delay: 10s
       placement:
         constraints:
-          - engine.labels.node.type==listprojectsservice
+          - engine.labels.node.type==jhclistprojectsservice
     environment:
       - PROJECTS_DB_HOST
       - PROJECTS_DB_PORT

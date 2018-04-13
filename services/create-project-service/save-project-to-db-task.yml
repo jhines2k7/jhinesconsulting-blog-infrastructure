@@ -17,7 +17,7 @@ services:
         delay: 10s
       placement:
         constraints:
-          - engine.labels.node.type==createprojectservice
+          - engine.labels.node.type==jhccreateprojectservice
     environment:
       - ZOOKEEPER_HOST
       - KAFKA_HOST

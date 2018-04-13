@@ -17,7 +17,7 @@ services:
         delay: 10s
       placement:
         constraints:
-          - engine.labels.node.type==contactformservice
+          - engine.labels.node.type==jhccontactformservice
     environment:
       - CONTACTS_DB_HOST
       - CONTACTS_DB_NAME
