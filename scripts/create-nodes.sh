@@ -67,7 +67,8 @@ function set_manager_node_env_variables {
     "$PROJECTS_DB_PORT" \
     "$PROJECTS_DB_NAME" \
     "$CONTACTS_DB_PORT" \
-    "$CONTACTS_DB_NAME"
+    "$CONTACTS_DB_NAME" \
+    "$KEYSTORE_PASSWORD"
 }
 
 function init_swarm_manager {

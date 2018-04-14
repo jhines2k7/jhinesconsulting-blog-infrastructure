@@ -19,4 +19,5 @@ echo "=======> setting env variables for manager node"
     echo "PROJECTS_DB_NAME=${14}"
     echo "CONTACTS_DB_PORT=${15}"
     echo "CONTACTS_DB_NAME=${16}"
+    echo "KEYSTORE_PASSWORD=${17}"
 } | sudo tee -a /etc/environment > /dev/null
