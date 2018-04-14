@@ -7,6 +7,8 @@ services:
     image: jhines2017/jhinesconsulting-blog-ui:0.64.19
     ports:
       - "80:80"
+    volumes:
+      - webroot:/usr/share/nginx/html
     deploy:
       restart_policy:
         condition: on-failure
@@ -20,3 +22,5 @@ services:
       placement:
         constraints:
           - engine.labels.node.type==jhcui
+volumes:
+  webroot:
