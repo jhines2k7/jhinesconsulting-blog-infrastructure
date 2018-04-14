@@ -1,4 +1,4 @@
-version: '3'
+version: '3.2'
 
 services:
   contact_form_service__contact_form_task:

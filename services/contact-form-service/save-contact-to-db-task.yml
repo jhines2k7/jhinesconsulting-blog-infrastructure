@@ -1,4 +1,4 @@
-version: '3'
+version: '3.2'
 
 services:
   contact_form_service__save_contact_to_db_task:
