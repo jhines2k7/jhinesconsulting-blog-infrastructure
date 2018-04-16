@@ -25,4 +25,4 @@ services:
       - KAFKA_HOST
       - KEYSTORE_PASSWORD
     ports:
-      - "3443:3443"
+      - "3443:443"
