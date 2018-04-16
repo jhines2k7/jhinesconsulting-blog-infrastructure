@@ -26,6 +26,6 @@ services:
       - KEYSTORE_PASSWORD
     ports:
       - target: 443
-        published: 443
+        published: 3443
         protocol: tcp
         mode: host
