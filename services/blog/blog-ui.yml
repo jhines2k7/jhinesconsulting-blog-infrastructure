@@ -14,11 +14,11 @@ services:
         published: 443
         protocol: tcp
         mode: host
-    volumes:
-      - webroot:/usr/share/nginx/html
-      - /dh-param/dhparam-2048.pem:/etc/ssl/certs/dhparam-2048.pem
-      - /docker-volumes/etc/letsencrypt/live/jhinesconsulting.com/fullchain.pem:/etc/letsencrypt/live/jhinesconsulting.com/fullchain.pem
-      - /docker-volumes/etc/letsencrypt/live/jhinesconsulting.com/privkey.pem:/etc/letsencrypt/live/jhinesconsulting.com/privkey.pem
+#    volumes:
+#      - webroot:/usr/share/nginx/html
+#      - /dh-param/dhparam-2048.pem:/etc/ssl/certs/dhparam-2048.pem
+#      - /docker-volumes/etc/letsencrypt/live/jhinesconsulting.com/fullchain.pem:/etc/letsencrypt/live/jhinesconsulting.com/fullchain.pem
+#      - /docker-volumes/etc/letsencrypt/live/jhinesconsulting.com/privkey.pem:/etc/letsencrypt/live/jhinesconsulting.com/privkey.pem
     deploy:
       restart_policy:
         condition: on-failure
@@ -32,5 +32,5 @@ services:
       placement:
         constraints:
           - engine.labels.node.type==jhcui
-volumes:
-  webroot:
+#volumes:
+#  webroot:
