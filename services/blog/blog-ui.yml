@@ -4,7 +4,7 @@ services:
   ui:
     depends_on:
       - contact_form_service__contact_form_task
-    image: jhines2017/jhinesconsulting-blog-ui:0.75.21
+    image: jhines2017/jhinesconsulting-blog-ui:0.76.21
     ports:
       - target: 80
         published: 80
