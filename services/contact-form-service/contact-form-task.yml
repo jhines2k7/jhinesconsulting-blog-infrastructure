@@ -4,7 +4,7 @@ services:
   contact_form_service__contact_form_task:
     depends_on:
       - kafka
-    image: jhines2017/contact-form-worker:1.10.0-SNAPSHOT
+    image: jhines2017/contact-form-worker:1.11.0-SNAPSHOT
     volumes:
       - /docker-volumes/etc/letsencrypt/live/contacts.jhinesconsulting.com/keystore.p12:/etc/letsencrypt/live/contacts.jhinesconsulting.com/keystore.p12
     deploy:
@@ -29,7 +29,7 @@ services:
         published: 80
         protocol: tcp
         mode: host
-      - target: 443
-        published: 8443
+      - target: 8443
+        published: 443
         protocol: tcp
         mode: host
