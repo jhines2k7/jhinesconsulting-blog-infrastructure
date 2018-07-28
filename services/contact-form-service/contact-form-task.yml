@@ -5,8 +5,8 @@ services:
     depends_on:
       - kafka
     image: jhines2017/contact-form-worker:1.10.0-SNAPSHOT
-#    volumes:
-#      - /docker-volumes/etc/letsencrypt/live/contacts.jhinesconsulting.com/keystore.p12:/etc/letsencrypt/live/contacts.jhinesconsulting.com/keystore.p12
+    volumes:
+      - /docker-volumes/etc/letsencrypt/live/contacts.jhinesconsulting.com/keystore.p12:/etc/letsencrypt/live/contacts.jhinesconsulting.com/keystore.p12
     deploy:
       restart_policy:
         condition: on-failure
