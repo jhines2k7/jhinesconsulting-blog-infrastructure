@@ -139,9 +139,6 @@ create_kafka_node
 echo "======> initializing swarm manager..."
 init_swarm_manager
 
-echo "======> joining kafka node to swarm..."
-bash ./join-swarm.sh $(get_manager_machine_name)
-
 echo "======> creating database node(s)..."
 create_contacts_db_node &
 #create_projects_db_node &
