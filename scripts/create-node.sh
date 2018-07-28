@@ -57,7 +57,6 @@ function create_node {
     local security_group="jhines-consulting-blog"
     local machine_id=$node_type-$ID
     local subnet_id="subnet-3f2d8f57"
-    local aws_region="us-east-2"
     local size="1gb"
 
     echo "======> creating $machine_id"
@@ -95,7 +94,7 @@ function create_node {
         --amazonec2-subnet-id $subnet_id \
         --amazonec2-security-group $security_group \
         --amazonec2-instance-type $instance_type \
-        --amazonec2-region $aws_region \
+        --amazonec2-region $AWS_REGION \
         --amazonec2-zone a \
         $machine_id
     else
