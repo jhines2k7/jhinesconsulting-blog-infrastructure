@@ -133,13 +133,16 @@ function create_projects_db_node {
 
 bash ./remove-all-nodes.sh
 
-echo "======> creating kafka node ..."
+echo "======> creating kafka node..."
 create_kafka_node
 
-echo "======> initializing swarm manager"
+echo "======> initializing swarm manager..."
 init_swarm_manager
 
-echo "======> creating database node(s) ..."
+echo "======> joining kafka node to swarm..."
+bash ./join-swarm.sh $(get_manager_machine_name)
+
+echo "======> creating database node(s)..."
 create_contacts_db_node &
 #create_projects_db_node &
 

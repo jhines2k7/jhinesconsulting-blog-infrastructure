@@ -141,7 +141,10 @@ function create_node {
 
     bash ./set-ufw-rules.sh $machine_id
     
-    join_swarm $machine_id
+    if [ "$node_type" != "jhckafka" ]
+    then
+        join_swarm $machine_id
+    fi
 }
 
 index=0
