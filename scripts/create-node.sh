@@ -9,7 +9,7 @@ function get_ip {
 }
 
 function get_manager_machine_name {
-    echo $(docker-machine ls --format "{{.Name}}" | grep 'jhcmanager')
+    echo $(docker-machine ls --format "{{.Name}}" | grep 'jhckafka')
 }
 
 function get_worker_token {
@@ -119,7 +119,7 @@ function create_node {
 
     if [ $? -ne 0 ]
     then
-        if [ $node_type = "jhcmanager" ] || [ $node_type = "jhccontactsdb" ] || [ $node_type = "jhckafka" ]
+        if [ $node_type = "jhccontactsdb" ] || [ $node_type = "jhckafka" ]
         then
             exit 2
         else
@@ -141,10 +141,7 @@ function create_node {
 
     bash ./set-ufw-rules.sh $machine_id
     
-    if [ "$node_type" != "jhcmanager" ]
-    then
-        join_swarm $machine_id
-    fi
+    join_swarm $machine_id
 }
 
 index=0

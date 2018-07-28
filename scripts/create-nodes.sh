@@ -7,25 +7,7 @@ function get_ip {
 }
 
 function get_manager_machine_name {
-    echo $(docker-machine ls --format "{{.Name}}" | grep 'jhcmanager')
-}
-
-#create manager node
-function create_manager_node {
-    bash ./create-node.sh jhcmanager 1
-
-    result=$?
-
-    if [ $result -ne 0 ]
-    then
-        echo "There was an error installing docker on the manager node. The script will now exit."
-        
-        echo "=====> Cleaning up..."
-
-        bash ./remove-all-nodes.sh
-
-        exit 1   
-    fi
+    echo $(docker-machine ls --format "{{.Name}}" | grep 'jhckafka')
 }
 
 function set_manager_node_env_variables {
@@ -151,11 +133,13 @@ function create_projects_db_node {
 
 bash ./remove-all-nodes.sh
 
-create_manager_node
+echo "======> creating kafka node ..."
+create_kafka_node
+
+echo "======> initializing swarm manager"
 init_swarm_manager
 
-echo "======> creating kafka and mysql nodes ..."
-create_kafka_node &
+echo "======> creating mysql node ..."
 create_contacts_db_node &
 #create_projects_db_node &
 
