@@ -129,6 +129,8 @@ function create_projects_db_node {
 
 if [ "$ENV" = "prod" ] ; then
     bash ./remove-prod-nodes.sh
+else
+    bash ./remove-dev-or-test-nodes.sh
 fi
 
 echo "======> creating kafka node..."
