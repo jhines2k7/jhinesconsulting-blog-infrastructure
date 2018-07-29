@@ -127,7 +127,9 @@ function create_projects_db_node {
 
 > $failed_installs_file
 
-bash ./remove-all-nodes.sh
+if [ "$ENV" = "prod" ] ; then
+    bash ./remove-prod-nodes.sh
+fi
 
 echo "======> creating kafka node..."
 create_kafka_node
@@ -176,9 +178,7 @@ if [ "$BUILD_UI" = true ] ; then
     cd /home/james/projects/jhinesconsulting/jhinesconsulting-blog-infrastructure/scripts
 fi
 
-if [ "$ENV" = "prod" ] ; then
-    bash ./remove-nodes-with-failed-docker-installations.sh
-fi
+bash ./remove-nodes-with-failed-docker-installations.sh
 
 set_manager_node_env_variables
 
