@@ -7,18 +7,23 @@ function get_ip {
 }
 
 function get_manager_machine_name {
-    echo $(docker-machine ls --format "{{.Name}}" | grep 'jhckafka')
+    if [ "$ENV" = "prod" ] ; then
+        echo $(docker-machine ls --format "{{.Name}}" | grep 'prod-jhckafka')
+    elif [ "$ENV" = "dev" ] ; then
+        echo $(docker-machine ls --format "{{.Name}}" | grep 'dev-jhckafka')
+    else
+        echo $(docker-machine ls --format "{{.Name}}" | grep 'test-jhckafka')
+    fi
 }
 
 function set_manager_node_env_variables {
     local kafka_host="kafka"
     local zookeeper_host="zookeeper"
-    local contacts_db_host="contactsdb"
+    local contacts_db_host=$(get_ip $(docker-machine ls --format "{{.Name}}" | grep 'jhccontactsdb'))
     local projects_db_host="projectsdb"
 
     if [ "$ENV" = "dev" ] ; then
-        kafka_machine_ip=$(get_ip $(docker-machine ls --format "{{.Name}}" | grep 'kafka'))
-        contacts_db_host=$(get_ip $(docker-machine ls --format "{{.Name}}" | grep 'contactsdb'))
+        kafka_machine_ip=$(get_ip $(docker-machine ls --format "{{.Name}}" | grep 'dev-jhckafka'))
 #        projects_db_host=$(get_ip $(docker-machine ls --format "{{.Name}}" | grep 'projectsdb'))
 
         kafka_host=$kafka_machine_ip

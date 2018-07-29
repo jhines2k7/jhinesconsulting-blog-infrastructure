@@ -9,7 +9,13 @@ function get_ip {
 }
 
 function get_manager_machine_name {
-    echo $(docker-machine ls --format "{{.Name}}" | grep 'jhckafka')
+    if [ "$ENV" = "prod" ] ; then
+        echo $(docker-machine ls --format "{{.Name}}" | grep 'prod-jhckafka')
+    elif [ "$ENV" = "dev" ] ; then
+        echo $(docker-machine ls --format "{{.Name}}" | grep 'dev-jhckafka')
+    else
+        echo $(docker-machine ls --format "{{.Name}}" | grep 'test-jhckafka')
+    fi
 }
 
 function get_worker_token {
@@ -30,12 +36,17 @@ function join_swarm {
 function copy_sql_schema {
     echo "======> copying sql schema file to mysql node ..."
 
-    local db_machine=$(docker-machine ls --format "{{.Name}}" | grep 'jhccontactsdb')
+    local db_machine=$(docker-machine ls --format "{{.Name}}" | grep 'prod-jhccontactsdb')
+
+    if [ "$ENV" = "dev" ] ; then
+        db_machine=$(docker-machine ls --format "{{.Name}}" | grep 'dev-jhccontactsdb')
+    elif [ "$ENV" = "test" ] ; then
+        db_machine=$(docker-machine ls --format "{{.Name}}" | grep 'test-jhccontactsdb')
+    fi
 
     local sql_directory=/schemas
 
-    if [ "$PROVIDER" = "aws" ]
-    then
+    if [ "$PROVIDER" = "aws" ] ; then
         sql_directory=/home/ubuntu/schemas
     fi
 
