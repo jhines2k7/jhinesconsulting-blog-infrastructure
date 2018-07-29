@@ -59,9 +59,9 @@ function create_node {
     local subnet_id="subnet-3f2d8f57"
     local size="1gb"
 
-    if [ "$ENV" -eq "dev" ] ; then
+    if [ "$ENV" = "dev" ] ; then
         machine_id="dev-"$machine_id
-    elif [ "$ENV" -eq "test" ]; then
+    elif [ "$ENV" = "test" ]; then
         machine_id="test-"$machine_id
     fi
 

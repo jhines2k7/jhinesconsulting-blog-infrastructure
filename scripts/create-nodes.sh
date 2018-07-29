@@ -16,7 +16,7 @@ function set_manager_node_env_variables {
     local contacts_db_host="contactsdb"
     local projects_db_host="projectsdb"
 
-    if [ "$ENV" -eq "dev" ] ; then
+    if [ "$ENV" = "dev" ] ; then
         kafka_machine_ip=$(get_ip $(docker-machine ls --format "{{.Name}}" | grep 'kafka'))
         contacts_db_host=$(get_ip $(docker-machine ls --format "{{.Name}}" | grep 'contactsdb'))
 #        projects_db_host=$(get_ip $(docker-machine ls --format "{{.Name}}" | grep 'projectsdb'))
@@ -176,7 +176,9 @@ if [ "$BUILD_UI" = true ] ; then
     cd /home/james/projects/jhinesconsulting/jhinesconsulting-blog-infrastructure/scripts
 fi
 
-bash ./remove-nodes-with-failed-docker-installations.sh
+if [ "$ENV" = "prod" ] ; then
+    bash ./remove-nodes-with-failed-docker-installations.sh
+fi
 
 set_manager_node_env_variables
 
