@@ -16,8 +16,7 @@ function set_manager_node_env_variables {
     local contacts_db_host="contactsdb"
     local projects_db_host="projectsdb"
 
-    if [ "$ENV" = "dev" ]
-    then
+    if [ "$ENV" -eq "dev" ] ; then
         kafka_machine_ip=$(get_ip $(docker-machine ls --format "{{.Name}}" | grep 'kafka'))
         contacts_db_host=$(get_ip $(docker-machine ls --format "{{.Name}}" | grep 'contactsdb'))
 #        projects_db_host=$(get_ip $(docker-machine ls --format "{{.Name}}" | grep 'projectsdb'))
@@ -26,8 +25,8 @@ function set_manager_node_env_variables {
         zookeeper_host=$kafka_machine_ip
     fi
 
-    export KAFKA_HOST=$kafka_machine_ip
-    export ZOOKEEPER_HOST=$kafka_machine_ip
+    export KAFKA_HOST=$kafka_host
+    export ZOOKEEPER_HOST=$zookeeper_host
     export CONTACTS_DB_HOST=$contacts_db_host
     export PROJECTS_DB_HOST=$projects_db_host
 
@@ -87,8 +86,7 @@ function create_kafka_node {
 
     result=$?
 
-    if [ $result -ne 0 ]
-    then
+    if [ $result -ne 0 ] ; then
         exit 1
     fi
 }
@@ -110,8 +108,7 @@ function create_contacts_db_node {
 
     result=$?
 
-    if [ $result -ne 0 ]
-    then
+    if [ $result -ne 0 ] ; then
         exit 1
     fi
 }
@@ -123,8 +120,7 @@ function create_projects_db_node {
 
     result=$?
 
-    if [ $result -ne 0 ]
-    then
+    if [ $result -ne 0 ] ; then
         exit 1
     fi
 }
