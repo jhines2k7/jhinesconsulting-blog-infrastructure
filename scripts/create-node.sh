@@ -63,6 +63,8 @@ function create_node {
         machine_id="dev-"$machine_id
     elif [ "$ENV" = "test" ]; then
         machine_id="test-"$machine_id
+    elif [ "$ENV" = "prod" ]; then
+        machine_id="prod-"$machine_id
     fi
 
     echo "======> creating $machine_id"
