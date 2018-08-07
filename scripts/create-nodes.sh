@@ -167,8 +167,9 @@ then
 fi
 echo "======> finished creating kafka and database nodes ..."
 
+#contact_form_service_node hosts the email_notification and save_contact_to_db services
 create_contact_form_service_node 1 &
-create_blog_ui_node 1 &
+#create_blog_ui_node 1 &
 
 #bash ./create-node.sh createprojectservice 1 &
 #bash ./create-node.sh listprojectsservice 1 &
