@@ -59,8 +59,6 @@ function set_manager_node_env_variables {
 
 function init_swarm_manager {
     # initialize swarm mode and create a manager
-    echo "======> Initializing swarm manager ..."
-    
     local manager_machine=$(get_manager_machine_name)
     local ip=$(docker-machine ip $manager_machine)
 
