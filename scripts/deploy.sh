@@ -53,7 +53,14 @@ function merge_compose_files {
     cat ../services/docker-stack.yml
 }
 
-manager_machine=$(docker-machine ls --format "{{.Name}}" | grep 'jhckafka')
+if [ "$ENV" = "prod" ] ; then
+    manager_machine=$(docker-machine ls --format "{{.Name}}" | grep 'prod-jhckafka')
+elif [ "$ENV" = "dev" ] ; then
+    manager_machine=$(docker-machine ls --format "{{.Name}}" | grep 'dev-jhckafka')
+else
+    manager_machine=$(docker-machine ls --format "{{.Name}}" | grep 'test-jhckafka')
+fi
+
 
 function copy_compose_file {
     directory=/
