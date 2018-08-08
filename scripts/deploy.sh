@@ -24,6 +24,7 @@ function merge_compose_files {
 
     if [ "$ENV" = "dev" ] ; then
         backing_services__kafka_service_compose_file="../services/backing-services/kafka-service.dev.yml"
+        contact_form_service__contact_form_task_compose_file="../services/contact-form-service/contact-form-task.dev.yml"
     fi
 
     echo "======> KAFKA_HOST: $KAFKA_HOST"
