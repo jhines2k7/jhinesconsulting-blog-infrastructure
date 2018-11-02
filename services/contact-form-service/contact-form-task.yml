@@ -7,7 +7,7 @@ services:
     image: jhines2017/contact-form-worker:1.11.0-SNAPSHOT
     volumes:
       - /docker-volumes/etc/letsencrypt/live/contacts.jhinesconsulting.com/keystore.p12:/etc/letsencrypt/live/contacts.jhinesconsulting.com/keystore.p12
-      - /docker-volumes/data/letsencrypt:/data/letsencrypt
+      - /docker/letsencrypt-docker-nginx/src/letsencrypt/letsencrypt-site:/data/letsencrypt
     deploy:
       restart_policy:
         condition: on-failure
