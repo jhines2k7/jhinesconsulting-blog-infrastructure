@@ -3,6 +3,7 @@ version: '3.7'
 services:
   contactsdb:
     image: mysql:8.0.13
+    command: '--default-authentication-plugin=mysql_native_password'
     deploy:
       restart_policy:
         condition: on-failure
