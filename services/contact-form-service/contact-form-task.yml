@@ -4,7 +4,7 @@ services:
   contact_form_service__contact_form_task:
     depends_on:
       - kafka
-    image: jhines2017/contact-form-worker:1.11.0-SNAPSHOT
+    image: jhines2017/contact-form-worker:1.14.0.RELEASE
     volumes:
       - /docker-volumes/etc/letsencrypt/live/contacts.jhinesconsulting.com/keystore.p12:/etc/letsencrypt/live/contacts.jhinesconsulting.com/keystore.p12
     deploy:
