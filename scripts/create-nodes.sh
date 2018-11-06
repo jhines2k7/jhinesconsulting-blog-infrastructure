@@ -20,11 +20,9 @@ function set_manager_node_env_variables {
     local kafka_host="kafka"
     local zookeeper_host="zookeeper"
     local contacts_db_host=$(get_ip $(docker-machine ls --format "{{.Name}}" | grep 'jhccontactsdb'))
-    local projects_db_host="projectsdb"
 
     if [ "$ENV" = "dev" ] ; then
         kafka_machine_ip=$(get_ip $(docker-machine ls --format "{{.Name}}" | grep 'dev-jhckafka'))
-#        projects_db_host=$(get_ip $(docker-machine ls --format "{{.Name}}" | grep 'projectsdb'))
 
         kafka_host=$kafka_machine_ip
         zookeeper_host=$kafka_machine_ip
