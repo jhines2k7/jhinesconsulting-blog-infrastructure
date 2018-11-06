@@ -36,9 +36,9 @@ function merge_compose_files {
     echo "======> running docker compose config to create a merged compose file"
 
 #    -f $backing_services__log_sink_service_compose_file \
-#    -f $contact_form_service__email_notification_task_compose_file \
     docker-compose \
     -f $blog_ui_compose_file \
+    -f $contact_form_service__email_notification_task_compose_file \
     -f $contact_form_service__contact_form_task_compose_file \
     -f $contact_form_service__save_contact_to_db_task_compose_file \
     -f $backing_services__contacts_db_compose_file \
