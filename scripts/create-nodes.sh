@@ -114,18 +114,6 @@ function create_contacts_db_node {
     fi
 }
 
-function create_projects_db_node {
-    echo "======> creating mysql projects worker node"
-
-    bash ./create-node.sh jhcprojectsdb 1
-
-    result=$?
-
-    if [ $result -ne 0 ] ; then
-        exit 1
-    fi
-}
-
 > $failed_installs_file
 
 if [ "$ENV" = "prod" ] ; then
