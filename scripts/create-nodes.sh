@@ -130,15 +130,10 @@ init_swarm_manager
 
 echo "======> creating database node(s)..."
 create_contacts_db_node &
-#create_projects_db_node &
 
 wait %1
 create_contacts_db_result=$?
 
-#wait %2
-#create_projects_db_node=$?
-
-#if [ $create_contacts_db_result -ne 0 ] || [ $create_projects_db_result -ne 0 ]
 if [ $create_contacts_db_result -ne 0 ]
 then
     echo "There was an error installing docker on the mysql or kafka nodes. The script will now exit."
@@ -153,17 +148,12 @@ echo "======> finished creating kafka and database nodes ..."
 
 #contact_form_service_node hosts the email_notification and save_contact_to_db services
 create_contact_form_service_node 1 &
-#create_blog_ui_node 1 &
-
-#bash ./create-node.sh createprojectservice 1 &
-#bash ./create-node.sh listprojectsservice 1 &
+create_blog_ui_node 1 &
 
 wait
 
 if [ "$BUILD_UI" = true ] ; then
     source set-contact-form-service-ip.sh
-
-#    source set-list-projects-service-ip.sh
 
     bash /home/james/projects/jhinesconsulting/jhinesconsulting-blog-ui/scripts/build.sh
 
