@@ -7,6 +7,9 @@ services:
     image: jhines2017/contact-form-worker:1.14.0.RELEASE
     volumes:
       - /docker-volumes/etc/letsencrypt/live/contacts.jhinesconsulting.com/keystore.p12:/etc/letsencrypt/live/contacts.jhinesconsulting.com/keystore.p12
+      - /docker/letsencrypt-docker-nginx/src/production/production-site:/data/letsencrypt
+      - /docker-volumes/etc/letsencrypt/live/contacts.jhinesconsulting.com/fullchain.pem:/etc/letsencrypt/live/contacts.jhinesconsulting.com/fullchain.pem
+      - /docker-volumes/etc/letsencrypt/live/contacts.jhinesconsulting.com/privkey.pem:/etc/letsencrypt/live/contacts.jhinesconsulting.com/privkey.pem
     deploy:
       restart_policy:
         condition: on-failure
